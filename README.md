@@ -1,7 +1,7 @@
 # DaniHttp
 [![Build Status](https://travis-ci.org/dani909/DaniHttp.svg?branch=master)](https://travis-ci.org/dani909/DaniHttp)
 
-##Usage
+## Usage
 First import the Library
 
 ```java
