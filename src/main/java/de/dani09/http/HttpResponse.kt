@@ -18,6 +18,7 @@ class HttpResponse(val responseCode: Int,
     val jSONArray
         get() = JSONArray(responseString)
 
+    @JvmOverloads
     fun getResponseHeader(key: String, caseSensitive: Boolean = true): String? {
         return if (caseSensitive) {
             responseHeaders[key]
