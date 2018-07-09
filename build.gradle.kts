@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.2.31"
+    kotlinVersion = "1.2.51"
 
     repositories {
         mavenCentral()
@@ -33,6 +33,9 @@ repositories {
 dependencies {
     compile(kotlin("stdlib-jdk8", kotlinVersion))
     testCompile("junit", "junit", "4.12")
+
+    implementation("commons-io:commons-io:2.6")
+    implementation("org.json:json:20180130")
 }
 
 configure<JavaPluginConvention> {
