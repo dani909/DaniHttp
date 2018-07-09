@@ -10,9 +10,9 @@ enum class HttpMethod {
     DELETE;
 
     override fun toString() = when (this) {
-        HttpMethod.GET -> "GET"
-        HttpMethod.POST -> "POST"
-        HttpMethod.PUT -> "PUT"
-        HttpMethod.DELETE -> "DELETE"
+        GET -> "GET"
+        POST -> "POST"
+        PUT -> "PUT"
+        DELETE -> "DELETE"
     }
 }

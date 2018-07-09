@@ -7,13 +7,17 @@ import org.json.JSONObject
 /**
  * Created by dani909 on 09.07.18.
  */
-class HttpResponse(responseCode: Int,
+class HttpResponse(val responseCode: Int,
                    val response: ByteArray,
-                   val responseHeaders: Map<String, String>) {
+                   private val responseHeaders: Map<String, String>) {
 
-    fun getResponseString() = String(response)
-    fun getJSONObject() = JSONObject(getResponseString())
-    fun getJSONArray() = JSONArray(getResponseString())
+    val responseString
+        get() = String(response)
+    val jSONObject
+        get() = JSONObject(responseString)
+    val jSONArray
+        get() = JSONArray(responseString)
+
     fun getResponseHeader(key: String, caseSensitive: Boolean): String? {
         return if (caseSensitive) {
             responseHeaders[key]
