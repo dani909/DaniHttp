@@ -18,13 +18,13 @@ class HttpResponse(val responseCode: Int,
     val jSONArray
         get() = JSONArray(responseString)
 
-    fun getResponseHeader(key: String, caseSensitive: Boolean): String? {
+    fun getResponseHeader(key: String, caseSensitive: Boolean = true): String? {
         return if (caseSensitive) {
             responseHeaders[key]
         } else {
             responseHeaders
                     .map { it.key.toLowerCase() to it.value.toLowerCase() }
-                    .toMap()[key]
+                    .toMap()[key.toLowerCase()]
         }
     }
 }
