@@ -8,7 +8,7 @@ First import the Library
 import de.dani09.http;
 ```
 
-and then see where your IDE Suggestions will bring you.
+and then see where your IDE's Autocomplete feature will bring you.
 
 An Example:
 ```java
