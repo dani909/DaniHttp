@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.dani09"
@@ -20,8 +19,7 @@ buildscript {
 plugins {
     java
     `maven-publish`
-    maven
-    id("com.github.johnrengelman.shadow") version "2.0.2"
+    //maven
 }
 
 apply {
@@ -69,9 +67,20 @@ publishing {
         "mavenJava"(MavenPublication::class) {
             from(components["java"])
             artifact(sourcesJar)
-            for (x in configurations.runtime.allDependencies) {
-                println(x)
-            }
         }
+    }
+}
+
+tasks {
+    val fullJar by creating(Jar::class) {
+        //dependsOn("build")
+
+        baseName = "${project.name}-with-deps"
+        from(configurations.runtime.map { if (it.isDirectory) it as Any else zipTree(it) })
+        with(tasks["jar"] as CopySpec)
+    }
+
+    "assemble"{
+        dependsOn(fullJar)
     }
 }
