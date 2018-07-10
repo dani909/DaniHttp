@@ -1,5 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+group = "de.dani09"
+val artifactID = "http"
+version = "0.1.0"
+
 buildscript {
     var kotlinVersion: String by extra
     kotlinVersion = "1.2.51"
@@ -15,9 +19,6 @@ buildscript {
 plugins {
     java
 }
-
-group = "de.dani09"
-version = "0.1.0"
 
 apply {
     plugin("kotlin")
