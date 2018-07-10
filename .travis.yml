@@ -1,11 +1,21 @@
 language: java
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: asn4QE028VMCiJvRYN701Ga9zYCV6XQNne2WUfSyQyuKYYhHqkvyY1IRSvAI+UmKndHVcRQ0R/tUTpnNCrrDQGhsZt2TMG7bOFB6njLCjWakpDNV11kHs2kN3WcwNfomLAv+ctUVQAI48ugeFYCUWbThckqa2lZx5oJ1MCHpbfvbKJJUYyLRG8g+bAdc8FBjdn86sRARc4uhsTUCvJct9LV3eTIPWD3KZ5x25JvnZBZU6FUegqXQOCUs+GEAJcYHiXOJQOX9GtH8Ucfw0AVpRw1D45Dxoc9tTv9O2d0BTZHsZ1tAkg3FHS0Vk7lUKumINQ8eRsFbwi+wt4Dn+8oGRZKbkwD+NIclM2y+3w5hL4WinqhX0t4nReEWPOpNcR7cHJFA20pIB2QCamXNZwnyYJGQLROOX4uYatcmbrGJ5HZxRPJqKZ9mWVf1/Y/CfORhJjdbHQYlFZxtjKrkadaG86x/Ae7Ku0nYB7PZlnN7zh+8KIA4nafDOqQCH/HLjJ3qYd4O4nWyaOvzmUxR9Wa5DFo5x5UweHPvYMKCjbYljbtxr8jJgDbGKqsNOV+bDBv97PXPsYlqOBAE43aI7MG7Tg48KYHH59aEReW4BDmJfNrNGy5bEXua0enrjHOPUkSPKApP7yHnRESQMQwxARc3IdweAdrTqpvraUguJHRzsBQ=
+  file_glob: true
+  file: build/libs/*
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: dani909/DaniHttp
