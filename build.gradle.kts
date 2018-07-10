@@ -1,7 +1,7 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.dani09"
-val artifactID = "http"
 version = "0.1.0"
 
 buildscript {
@@ -11,6 +11,7 @@ buildscript {
     repositories {
         mavenCentral()
     }
+
     dependencies {
         classpath(kotlin("gradle-plugin", kotlinVersion))
     }
@@ -18,6 +19,9 @@ buildscript {
 
 plugins {
     java
+    `maven-publish`
+    maven
+    id("com.github.johnrengelman.shadow") version "2.0.2"
 }
 
 apply {
@@ -35,8 +39,8 @@ dependencies {
     compile(kotlin("stdlib-jdk8", kotlinVersion))
     testCompile("junit", "junit", "4.12")
 
-    implementation("commons-io:commons-io:2.6")
-    implementation("org.json:json:20180130")
+    compile("commons-io:commons-io:2.6")
+    compile("org.json:json:20180130")
 }
 
 configure<JavaPluginConvention> {
@@ -44,4 +48,30 @@ configure<JavaPluginConvention> {
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+val sourcesJar by tasks.creating(Jar::class) {
+    classifier = "sources"
+    from(java.sourceSets["main"].allSource)
+}
+
+publishing {
+    repositories {
+        maven {
+            url = uri("https://api.bintray.com/maven/dani09/DaniHttp/DaniHttp/;publish=1")
+            credentials {
+                username = System.getenv("BINTRAY_USER")
+                password = System.getenv("BINTRAY_API_KEY")
+            }
+        }
+    }
+    (publications) {
+        "mavenJava"(MavenPublication::class) {
+            from(components["java"])
+            artifact(sourcesJar)
+            for (x in configurations.runtime.allDependencies) {
+                println(x)
+            }
+        }
+    }
 }
