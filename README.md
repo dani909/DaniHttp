@@ -1,6 +1,71 @@
 # DaniHttp
 [![Build Status](https://travis-ci.org/dani909/DaniHttp.svg?branch=master)](https://travis-ci.org/dani909/DaniHttp)
 
+## Installation
+
+### Maven
+First add JCenter to your pom
+
+```xml
+<repositories>
+    <repository>
+      <id>jcenter</id>
+      <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+```
+
+and then the Dependency
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>de.dani09</groupId>
+        <artifactId>DaniHttp</artifactId>
+        <version>0.1.0</version>
+    </dependency>
+</dependencies>
+```
+
+### Gradle
+
+First add JCenter
+
+```groovy
+repositories {  
+   jcenter()  
+}
+```
+
+and then the Dependency
+
+```groovy
+dependencies {
+    compile 'de.dani09:DaniHttp:0.1.0'
+}
+```
+
+If you are using Gradle with the Kotlin DSL you will have to use this instead
+
+```groovy
+dependencies {
+    compile("de.dani09:DaniHttp:0.1.0")
+}
+```
+
+### sbt
+
+First activate JCenter
+```sbtshell
+useJCenter := true
+```
+
+and then the Dependency
+
+```sbtshell
+libraryDependencies += "de.dani09" % "DaniHttp" % "0.1.0"
+```
+
 ## Usage
 First import the Library
 
