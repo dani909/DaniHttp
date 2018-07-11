@@ -4,26 +4,40 @@ import org.apache.commons.io.IOUtils
 import java.net.HttpURLConnection
 import java.net.URL
 
-@Suppress("unused")
 /**
- * Created by dani909 on 09.07.18.
+ * With this class you can make Http requests to an Server
+ * to do that instance it add some Header etc. depending on what you need
+ * and then call the execute method to actually execute it
+ *
+ * You can make HttpRequests in an Builder like pattern
+ * because each method is returning the current instance
  */
+@Suppress("unused")
 class HttpRequest(private val url: String,
                   private var httpMethod: HttpMethod) {
 
     private var requestHeaders: MutableMap<String, String> = mutableMapOf()
     private var userAgent: String = "Mozilla/5.0"
 
+    /**
+     * sets the UserAgent for the Request
+     */
     fun setUserAgent(userAgent: String): HttpRequest {
         this.userAgent = userAgent
         return this
     }
 
+    /**
+     * adds an Request Header to the Request
+     */
     fun addRequestHeader(headerName: String, headerValue: String): HttpRequest {
         requestHeaders[headerName] = headerValue
         return this
     }
 
+    /**
+     * executes the Http Request and returns the Response
+     */
     fun execute() = Executor(this).executeHttpRequest()
 
     private class Executor(private val request: HttpRequest) {

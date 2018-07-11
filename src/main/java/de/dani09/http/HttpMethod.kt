@@ -1,7 +1,8 @@
 package de.dani09.http
 
 /**
- * Created by dani909 on 09.07.18.
+ * These are the supported HttpMethods for the HttpRequest class
+ * @see HttpRequest
  */
 enum class HttpMethod {
     GET,
@@ -9,6 +10,11 @@ enum class HttpMethod {
     PUT,
     DELETE;
 
+    /**
+     * Converts Enum to a String
+     * The String will be equal to the Enum Name
+     * E.g. HttpMethod.GET will become "GET"
+     */
     override fun toString() = when (this) {
         GET -> "GET"
         POST -> "POST"
