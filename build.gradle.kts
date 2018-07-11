@@ -19,7 +19,6 @@ buildscript {
 plugins {
     java
     `maven-publish`
-    //maven
 }
 
 apply {
@@ -73,8 +72,6 @@ publishing {
 
 tasks {
     val fullJar by creating(Jar::class) {
-        //dependsOn("build")
-
         baseName = "${project.name}-with-dependencies"
         from(configurations.runtime.map { if (it.isDirectory) it as Any else zipTree(it) })
         with(tasks["jar"] as CopySpec)
