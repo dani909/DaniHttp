@@ -1,3 +1,4 @@
+import groovy.util.Node
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.dani09"
@@ -20,7 +21,6 @@ plugins {
     java
     `maven-publish`
     signing
-    //maven
     id("org.jetbrains.dokka") version "0.9.17"
 }
 
@@ -95,15 +95,30 @@ project.publishing {
             from(components["java"])
             artifact(dokkaJar)
             artifact(sourcesJar)
+
+            pom.withXml {
+                val node = this.asNode()
+                node.appendNode("name", "DaniHttp")
+                node.appendNode("description", "A small Http Library with an Builder like pattern")
+                node.appendNode("url", "https://github.com/dani909/DaniHttp")
+
+                val scm = Node(node, "scm")
+                scm.appendNode("connection", "scm:https://github.com/dani909/DaniHttp.git")
+                scm.appendNode("developerConnection", "scm:https://github.com/dani909/DaniHttp.git")
+                scm.appendNode("url", "https://github.com/dani909/DaniHttp")
+
+                val licenses = Node(node, "licenses")
+                val license = Node(licenses, "license")
+                license.appendNode("name", "MIT License")
+                license.appendNode("url", "https://opensource.org/licenses/mit-license.php")
+
+                val developers = Node(node, "developers")
+                val developer = Node(developers, "developer")
+                developer.appendNode("id", "dani09")
+                developer.appendNode("name", "Daniel Huber")
+                developer.appendNode("email", "daniel@dani09.de")
+            }
+
         }
     }
-}
-
-signing {
-    isRequired = false
-
-    sign(sourcesJar)
-    sign(dokkaJar)
-    sign(fullJar)
-    sign(configurations.archives)
 }
