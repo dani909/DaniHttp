@@ -21,7 +21,7 @@ and then the Dependency
 <dependencies>
     <dependency>
         <groupId>de.dani09</groupId>
-        <artifactId>DaniHttp</artifactId>
+        <artifactId>dani-http</artifactId>
         <version>0.1.0</version>
     </dependency>
 </dependencies>
@@ -41,7 +41,7 @@ and then the Dependency
 
 ```groovy
 dependencies {
-    compile 'de.dani09:DaniHttp:0.1.0'
+    compile 'de.dani09:dani-http:0.1.0'
 }
 ```
 
@@ -49,7 +49,7 @@ If you are using Gradle with the Kotlin DSL you will have to use this instead
 
 ```groovy
 dependencies {
-    compile("de.dani09:DaniHttp:0.1.0")
+    compile("de.dani09:dani-http:0.1.0")
 }
 ```
 
@@ -63,7 +63,7 @@ useJCenter := true
 and then the Dependency
 
 ```sbtshell
-libraryDependencies += "de.dani09" % "DaniHttp" % "0.1.0"
+libraryDependencies += "de.dani09" % "dani-http" % "0.1.0"
 ```
 
 ## Usage
