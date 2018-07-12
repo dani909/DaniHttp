@@ -6,18 +6,8 @@
 ## Installation
 
 ### Maven
-First add JCenter to your pom
 
-```xml
-<repositories>
-    <repository>
-      <id>jcenter</id>
-      <url>https://jcenter.bintray.com/</url>
-    </repository>
-</repositories>
-```
-
-and then the Dependency
+Add this dependency to your Pom
 
 ```xml
 <dependencies>
@@ -31,15 +21,7 @@ and then the Dependency
 
 ### Gradle
 
-First add JCenter
-
-```groovy
-repositories {  
-   jcenter()  
-}
-```
-
-and then the Dependency
+Add this dependency to your build.gradle
 
 ```groovy
 dependencies {
@@ -47,7 +29,8 @@ dependencies {
 }
 ```
 
-If you are using Gradle with the Kotlin DSL you will have to use this instead
+If you are using Gradle with the Kotlin DSL you will have to add this 
+to your build.gradle.kts instead
 
 ```groovy
 dependencies {
@@ -57,12 +40,7 @@ dependencies {
 
 ### sbt
 
-First activate JCenter
-```sbtshell
-useJCenter := true
-```
-
-and then the Dependency
+Add this dependency to your build.sbt
 
 ```sbtshell
 libraryDependencies += "de.dani09" % "dani-http" % "0.1.0"
