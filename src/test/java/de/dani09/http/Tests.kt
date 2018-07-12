@@ -3,9 +3,6 @@ package de.dani09.http
 import org.junit.Test
 import java.util.*
 
-/**
- * Created by dani909 on 09.07.18.
- */
 class Tests {
     @Test
     fun validResponseCode() {

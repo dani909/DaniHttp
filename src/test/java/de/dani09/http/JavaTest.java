@@ -2,9 +2,6 @@ package de.dani09.http;
 
 import org.junit.Test;
 
-/**
- * Created by dani909 on 09.07.18.
- */
 public class JavaTest {
     @Test
     public void responseCodeValid() {

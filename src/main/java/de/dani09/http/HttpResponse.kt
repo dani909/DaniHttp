@@ -5,6 +5,8 @@ import org.json.JSONObject
 
 /**
  * This Class is the Output of the HttpRequest class
+ * @property response Provides the Response as an ByteArray
+ * @property responseCode Provides the ResponseCode of the HttpRequest
  * @property responseString Provides the Response as a String
  * @property jSONObject Provides the Response as a JSONObject
  * @property jSONArray Provides the Response as a JSONArray
