@@ -2,7 +2,7 @@ import groovy.util.Node
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "de.dani09"
-version = "0.1.0"
+version = "0.1.1"
 
 buildscript {
     var kotlinVersion: String by extra
