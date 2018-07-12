@@ -99,15 +99,11 @@ project.publishing {
     }
 }
 
-gradle.taskGraph.whenReady {
-    if (this.hasTask("publish")) {
-        signing {
-            sign(sourcesJar)
-            sign(dokkaJar)
-            sign(fullJar)
-            sign(configurations.archives)
-        }
+signing {
+    isRequired = false
 
-        println("will sign artifacts")
-    }
+    sign(sourcesJar)
+    sign(dokkaJar)
+    sign(fullJar)
+    sign(configurations.archives)
 }
