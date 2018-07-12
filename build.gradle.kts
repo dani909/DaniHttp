@@ -19,6 +19,9 @@ buildscript {
 plugins {
     java
     `maven-publish`
+    signing
+    //maven
+    id("org.jetbrains.dokka") version "0.9.17"
 }
 
 apply {
@@ -33,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8", kotlinVersion))
+    implementation(kotlin("stdlib-jdk8", kotlinVersion))
     testCompile("junit", "junit", "4.12")
 
     compile("commons-io:commons-io:2.6")
@@ -47,12 +50,37 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+val dokka by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
+    outputFormat = "html"
+    outputDirectory = "$buildDir/javadoc"
+}
+
+val dokkaJar by tasks.creating(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    classifier = "javadoc"
+    from(dokka)
+}
+
 val sourcesJar by tasks.creating(Jar::class) {
     classifier = "sources"
     from(java.sourceSets["main"].allSource)
 }
 
-publishing {
+val fullJar by tasks.creating(Jar::class) {
+    baseName = "${project.name}-with-dependencies"
+    from(configurations.runtime.map { if (it.isDirectory) it as Any else zipTree(it) })
+    with(tasks["jar"] as CopySpec)
+}
+
+tasks {
+    "assemble"{
+        dependsOn(sourcesJar)
+        dependsOn(fullJar)
+        dependsOn(dokkaJar)
+    }
+}
+
+project.publishing {
     repositories {
         maven {
             url = uri("https://api.bintray.com/maven/dani09/DaniHttp/DaniHttp/;publish=1")
@@ -65,19 +93,21 @@ publishing {
     (publications) {
         "mavenJava"(MavenPublication::class) {
             from(components["java"])
+            artifact(dokkaJar)
             artifact(sourcesJar)
         }
     }
 }
 
-tasks {
-    val fullJar by creating(Jar::class) {
-        baseName = "${project.name}-with-dependencies"
-        from(configurations.runtime.map { if (it.isDirectory) it as Any else zipTree(it) })
-        with(tasks["jar"] as CopySpec)
-    }
+gradle.taskGraph.whenReady {
+    if (this.hasTask("publish")) {
+        signing {
+            sign(sourcesJar)
+            sign(dokkaJar)
+            sign(fullJar)
+            sign(configurations.archives)
+        }
 
-    "assemble"{
-        dependsOn(fullJar)
+        println("will sign artifacts")
     }
 }
