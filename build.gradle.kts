@@ -67,7 +67,7 @@ val sourcesJar by tasks.creating(Jar::class) {
 }
 
 val fullJar by tasks.creating(Jar::class) {
-    baseName = "${project.name}-with-dependencies"
+    classifier = "with-dependencies"
     from(configurations.runtime.map { if (it.isDirectory) it as Any else zipTree(it) })
     with(tasks["jar"] as CopySpec)
 }
