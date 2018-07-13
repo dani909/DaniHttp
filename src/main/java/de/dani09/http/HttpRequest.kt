@@ -28,7 +28,6 @@ class HttpRequest(private val url: String,
      */
     fun setUserAgent(userAgent: String): HttpRequest = apply { this.userAgent = userAgent }
 
-
     /**
      * adds an Request Header to the Request
      */
@@ -74,13 +73,9 @@ class HttpRequest(private val url: String,
             try {
                 // Adding props to connection
                 connection.requestMethod = request.httpMethod.toString()
-                addRequestHeaders(connection)
 
-                if (request.body != null && request.body!!.isNotEmpty()) {
-                    connection.doOutput = true
-                    IOUtils.write(request.body, connection.outputStream)
-                    connection.outputStream.close()
-                }
+                addRequestHeaders(connection)
+                setRequestBody(connection)
 
                 // Creating Response from connection
                 result = HttpResponse(
@@ -101,6 +96,14 @@ class HttpRequest(private val url: String,
             }
 
             return result!!
+        }
+
+        private fun setRequestBody(connection: HttpURLConnection) {
+            if (request.body != null && request.body!!.isNotEmpty()) {
+                connection.doOutput = true
+                IOUtils.write(request.body, connection.outputStream)
+                connection.outputStream.close()
+            }
         }
 
         private fun addRequestHeaders(c: HttpURLConnection) {
