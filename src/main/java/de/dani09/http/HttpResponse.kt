@@ -13,9 +13,9 @@ import org.json.JSONObject
  * @see HttpRequest
  */
 @Suppress("unused", "UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
-class HttpResponse(val responseCode: Int,
-                   val response: ByteArray,
-                   private val responseHeaders: Map<String, String>) {
+open class HttpResponse(val responseCode: Int,
+                        val response: ByteArray,
+                        private val responseHeaders: Map<String, String>) {
 
     val responseString
         get() = String(response)

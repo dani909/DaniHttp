@@ -1,8 +1,11 @@
 package de.dani09.http
 
 import org.apache.commons.io.IOUtils
+import org.json.JSONObject
+import java.io.FileNotFoundException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.nio.charset.Charset
 
 /**
  * With this class you can make Http requests to an Server
@@ -18,22 +21,25 @@ class HttpRequest(private val url: String,
 
     private var requestHeaders: MutableMap<String, String> = mutableMapOf()
     private var userAgent: String = "Mozilla/5.0"
+    private var body: ByteArray? = null
 
     /**
      * sets the UserAgent for the Request
      */
-    fun setUserAgent(userAgent: String): HttpRequest {
-        this.userAgent = userAgent
-        return this
-    }
+    fun setUserAgent(userAgent: String): HttpRequest = apply { this.userAgent = userAgent }
+
 
     /**
      * adds an Request Header to the Request
      */
-    fun addRequestHeader(headerName: String, headerValue: String): HttpRequest {
-        requestHeaders[headerName] = headerValue
-        return this
-    }
+    fun addRequestHeader(headerName: String, headerValue: String): HttpRequest = apply { this.requestHeaders[headerName] = headerValue }
+
+
+    fun addRequestBody(b: String, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toByteArray(charset) }
+
+    fun addRequestBody(b: ByteArray): HttpRequest = apply { body = b }
+
+    fun addRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
 
     /**
      * executes the Http Request and returns the Response
@@ -50,6 +56,12 @@ class HttpRequest(private val url: String,
                 connection.requestMethod = request.httpMethod.toString()
                 addRequestHeaders(connection)
 
+                if (request.body != null && request.body!!.isNotEmpty()) {
+                    connection.doOutput = true
+                    IOUtils.write(request.body, connection.outputStream)
+                    connection.outputStream.close()
+                }
+
                 // Creating Response from connection
                 result = HttpResponse(
                         responseCode = connection.responseCode,
@@ -57,7 +69,13 @@ class HttpRequest(private val url: String,
                         responseHeaders = processResponseHeaders(connection)
                 )
             } catch (e: Exception) {
-                throw e
+                when (e::class) {
+                    FileNotFoundException::class -> {
+                        return HttpResponseDummy(404)
+                    }
+
+                    else -> throw e
+                }
             } finally {
                 connection.disconnect()
             }

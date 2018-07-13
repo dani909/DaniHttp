@@ -61,4 +61,12 @@ class Tests {
             both[index]
         }.map { it.toString() }.reduce { acc, c -> acc + c }
     }
+
+    @Test
+    fun fileNotFound() {
+        val response = Http.get("https://httpbin.org/get2")
+                .execute()
+
+        assert(response.responseCode == 404)
+    }
 }
