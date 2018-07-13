@@ -1,5 +1,7 @@
 import groovy.util.Node
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jfrog.build.extractor.clientConfiguration.ArtifactoryClientConfiguration
+import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 
 group = "de.dani09"
 version = "0.1.1"
@@ -22,6 +24,7 @@ plugins {
     `maven-publish`
     signing
     id("org.jetbrains.dokka") version "0.9.17"
+    id("com.jfrog.artifactory") version "4.7.5"
 }
 
 apply {
@@ -78,12 +81,20 @@ tasks {
         dependsOn(fullJar)
         dependsOn(dokkaJar)
     }
+    "snapshot"{
+        project.version = "${project.version}-SNAPSHOT"
+    }
 }
 
 project.publishing {
     repositories {
         maven {
-            url = uri("https://api.bintray.com/maven/dani09/DaniHttp/DaniHttp/;publish=1")
+            url = if (project.version.toString().endsWith("-SNAPSHOT")) {
+                uri("https://oss.jfrog.org/artifactory/oss-snapshot-local")
+            } else {
+                uri("https://api.bintray.com/maven/dani09/DaniHttp/DaniHttp/;publish=1")
+            }
+
             credentials {
                 username = System.getenv("BINTRAY_USER")
                 password = System.getenv("BINTRAY_API_KEY")
