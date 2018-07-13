@@ -55,13 +55,13 @@ class HttpRequest(private val url: String,
     fun setRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
 
     /**
-     * sets the Content-Type Header for this HttpRequest
+     * Sets the Content-Type Header for this HttpRequest
      * @param contentType the Content-Type you wish to set
      */
     fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
     /**
-     * executes the Http Request and returns the Response
+     * Executes the Http Request and returns the Response
      */
     fun execute() = Executor(this).executeHttpRequest()
 
