@@ -34,12 +34,25 @@ class HttpRequest(private val url: String,
      */
     fun addRequestHeader(headerName: String, headerValue: String): HttpRequest = apply { this.requestHeaders[headerName] = headerValue }
 
+    /**
+     * Sets the body for the HttpRequest
+     * @param b the Body in a String
+     * @param charset the used Charset for the conversion to Bytes
+     */
+    fun setRequestBody(b: String, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toByteArray(charset) }
 
-    fun addRequestBody(b: String, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toByteArray(charset) }
+    /**
+     * Sets the body for the HttpRequest
+     * @param b the Body in a Byte Array
+     */
+    fun setRequestBody(b: ByteArray): HttpRequest = apply { body = b }
 
-    fun addRequestBody(b: ByteArray): HttpRequest = apply { body = b }
-
-    fun addRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
+    /**
+     * Sets the body for the HttpRequest
+     * @param b the Body in a JSONObject
+     * @param charset the used Charset for the conversion to Bytes
+     */
+    fun setRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
 
     /**
      * executes the Http Request and returns the Response
