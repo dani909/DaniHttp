@@ -15,7 +15,7 @@ import java.nio.charset.Charset
  * You can make HttpRequests in an Builder like pattern
  * because each method is returning the current instance
  */
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class HttpRequest(private val url: String,
                   private var httpMethod: HttpMethod) {
 
@@ -51,8 +51,15 @@ class HttpRequest(private val url: String,
      * Sets the body for the HttpRequest
      * @param b the Body in a JSONObject
      * @param charset the used Charset for the conversion to Bytes
+     * @see setContentType you may want to set Json as a ContentType
      */
     fun setRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
+
+    /**
+     * sets the Content-Type Header for this HttpRequest
+     * @param contentType the Content-Type you wish to set
+     */
+    fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
     /**
      * executes the Http Request and returns the Response
