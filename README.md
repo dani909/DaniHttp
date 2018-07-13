@@ -14,7 +14,7 @@ Add this dependency to your Pom
     <dependency>
         <groupId>de.dani09</groupId>
         <artifactId>dani-http</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </dependency>
 </dependencies>
 ```
@@ -25,7 +25,7 @@ Add this dependency to your build.gradle
 
 ```groovy
 dependencies {
-    compile 'de.dani09:dani-http:0.1.0'
+    compile 'de.dani09:dani-http:0.1.1'
 }
 ```
 
@@ -34,7 +34,7 @@ to your build.gradle.kts instead
 
 ```groovy
 dependencies {
-    compile("de.dani09:dani-http:0.1.0")
+    compile("de.dani09:dani-http:0.1.1")
 }
 ```
 
@@ -43,7 +43,7 @@ dependencies {
 Add this dependency to your build.sbt
 
 ```sbtshell
-libraryDependencies += "de.dani09" % "dani-http" % "0.1.0"
+libraryDependencies += "de.dani09" % "dani-http" % "0.1.1"
 ```
 
 ## Usage
