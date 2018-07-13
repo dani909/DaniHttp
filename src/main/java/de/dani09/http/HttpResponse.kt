@@ -26,12 +26,12 @@ open class HttpResponse(val responseCode: Int,
 
     /**
      * Returns the ResponseHeader from the Http Response identified by the Key
-     * Will return a empty String if the Header was not found
+     * Will return an empty String if the Header was not found
      * @param key The Key or Name that the Header has
      * @param caseSensitive Should the Header search be Case sensitive or not
      */
     @JvmOverloads
-    fun getResponseHeader(key: String, caseSensitive: Boolean = true): String? {
+    fun getResponseHeader(key: String, caseSensitive: Boolean = true): String {
         return if (caseSensitive) {
             responseHeaders[key].orEmpty()
         } else {
@@ -41,4 +41,10 @@ open class HttpResponse(val responseCode: Int,
                     .orEmpty()
         }
     }
+
+    /**
+     * Returns the ContentType the Server responded
+     * Will return an empty String if no ContentType Header is present
+     */
+    fun getContentType(): String = getResponseHeader("Content-Type", false)
 }
