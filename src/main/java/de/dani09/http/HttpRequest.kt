@@ -93,7 +93,6 @@ class HttpRequest(private val url: String,
      */
     fun executeAsFuture(): Future<*>? = Executors.newSingleThreadExecutor().submit { Executor(this).executeHttpRequest(true) }
 
-
     private class Executor(private val request: HttpRequest) {
         /**
          * Will execute the given HttpRequest and return the Response
