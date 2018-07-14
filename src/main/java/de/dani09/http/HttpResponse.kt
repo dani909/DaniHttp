@@ -36,7 +36,7 @@ open class HttpResponse(val responseCode: Int,
             responseHeaders[key].orEmpty()
         } else {
             responseHeaders
-                    .map { it.key.toLowerCase() to it.value.toLowerCase() }
+                    .map { it.key.toLowerCase() to it.value }
                     .toMap()[key.toLowerCase()]
                     .orEmpty()
         }
