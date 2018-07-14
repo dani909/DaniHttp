@@ -1,4 +1,4 @@
-package de.dani09.http.request
+package de.dani09.http.response
 
 import de.dani09.http.HttpResponse
 import de.dani09.http.TestUtil
