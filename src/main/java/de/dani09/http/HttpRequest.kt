@@ -3,9 +3,14 @@ package de.dani09.http
 import org.apache.commons.io.IOUtils
 import org.json.JSONObject
 import java.io.FileNotFoundException
+import java.net.ConnectException
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import java.net.URL
 import java.nio.charset.Charset
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
+import javax.net.ssl.HttpsURLConnection
 
 /**
  * With this class you can make Http requests to an Server
@@ -22,9 +27,11 @@ class HttpRequest(private val url: String,
     private var requestHeaders: MutableMap<String, String> = mutableMapOf()
     private var userAgent: String = "Mozilla/5.0"
     private var body: ByteArray? = null
+    private var timeout: Int = 10000
 
     /**
      * sets the UserAgent for the Request
+     * Default Value is "Mozilla/5.0"
      */
     fun setUserAgent(userAgent: String): HttpRequest = apply { this.userAgent = userAgent }
 
@@ -61,14 +68,40 @@ class HttpRequest(private val url: String,
     fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
     /**
-     * Executes the Http Request and returns the Response
+     * Sets the maximal TimeOut in milliseconds for this HttpRequest
+     * Default value is 10000
      */
-    fun execute() = Executor(this).executeHttpRequest()
+    fun setTimeOut(timeout: Int) = apply { this.timeout = timeout }
+
+    /**
+     * Executes the Http Request and returns the Response
+     * ResponseCode will be 0 if the Connection Timed Out
+     * @return will return the HttpResponse
+     */
+    fun execute() = Executor(this).executeHttpRequest(true)!!
+
+    /**
+     * Executes the Http Request and will not throw any Exception
+     * but will return null in case of an error instead
+     * @see execute for more details
+     */
+    fun executeWithoutExceptions() = Executor(this).executeHttpRequest(false)
+
+    /**
+     * Executes the Http Request as a Future
+     * @see execute for more details
+     */
+    fun executeAsFuture(): Future<*>? = Executors.newSingleThreadExecutor().submit { Executor(this).executeHttpRequest(true) }
+
 
     private class Executor(private val request: HttpRequest) {
-        fun executeHttpRequest(): HttpResponse {
+        /**
+         * Will execute the given HttpRequest and return the Response
+         * @param exceptions should Exceptions be thrown? if false it will return null if there was any exception
+         */
+        fun executeHttpRequest(exceptions: Boolean = true): HttpResponse? {
             val result: HttpResponse?
-            val connection: HttpURLConnection = URL(request.url).openConnection() as HttpURLConnection
+            val connection: HttpURLConnection = getConnection()
 
             try {
                 // Adding props to connection
@@ -77,26 +110,54 @@ class HttpRequest(private val url: String,
                 addRequestHeaders(connection)
                 setRequestBody(connection)
 
+                connection.connectTimeout = request.timeout
+                connection.connect()
+
                 // Creating Response from connection
                 result = HttpResponse(
                         responseCode = connection.responseCode,
-                        response = IOUtils.toByteArray(connection.inputStream),
+                        response = connection.inputStream.use { IOUtils.toByteArray(it) },
                         responseHeaders = processResponseHeaders(connection)
                 )
+
             } catch (e: Exception) {
-                when (e::class) {
+                return when (e::class) {
                     FileNotFoundException::class -> {
-                        return HttpResponseDummy(404)
+                        HttpResponseDummy(HttpURLConnection.HTTP_NOT_FOUND)
                     }
 
-                    else -> throw e
+                    SocketTimeoutException::class -> {
+                        HttpResponseDummy(0)
+                    }
+
+                    ConnectException::class -> {
+                        HttpResponseDummy(0)
+                    }
+
+                    else -> {
+                        if (!exceptions) null
+                        else throw e
+                    }
                 }
             } finally {
                 connection.disconnect()
             }
 
-            return result!!
+            return result
         }
+
+        private fun getConnection(): HttpURLConnection {
+            val url = URL(request.url)
+            val urlConnection = url.openConnection()
+
+            return if (isUrlHttps(url))
+                urlConnection as HttpsURLConnection
+            else
+                urlConnection as HttpURLConnection
+
+        }
+
+        private fun isUrlHttps(url: URL) = url.protocol == "https"
 
         private fun setRequestBody(connection: HttpURLConnection) {
             if (request.body != null && request.body!!.isNotEmpty()) {

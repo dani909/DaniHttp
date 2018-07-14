@@ -69,4 +69,18 @@ class Tests {
 
         assert(response.responseCode == 404)
     }
+
+    @Test
+    fun timeOut() {
+        val timeBefore = System.currentTimeMillis()
+
+        val response = Http.get("https://dani09.de:81")
+                .setTimeOut(5000)
+                .execute()
+
+        val timeAfter = System.currentTimeMillis()
+
+        assert(timeAfter - timeBefore < 6000)
+        assert(response.responseCode == 0)
+    }
 }
