@@ -26,7 +26,7 @@ object TestUtil {
         if (name == "")
             println("Expected: $expected Actual: $actual")
         else
-            println("$name: Expected: $expected Actual: $actual")
+            println("$name: Expected: \"$expected\" Actual: \"$actual\"")
         assert(expected == actual)
     }
 
