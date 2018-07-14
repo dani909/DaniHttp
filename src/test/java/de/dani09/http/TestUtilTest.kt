@@ -95,4 +95,11 @@ class RunMultipleTimes {
 
         assert(result)
     }
+
+    @Test
+    fun negative() {
+        TestUtil.runMultipleTimes(-1) {
+            assert(false)
+        }
+    }
 }
