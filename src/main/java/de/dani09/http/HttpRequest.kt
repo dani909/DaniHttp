@@ -21,7 +21,7 @@ import javax.net.ssl.HttpsURLConnection
  * You can make HttpRequests in an Builder like pattern
  * because each method is returning the current instance
  */
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("unused")
 class HttpRequest(private val url: String,
                   private var httpMethod: HttpMethod) {
 
@@ -46,6 +46,7 @@ class HttpRequest(private val url: String,
      * @param b the Body in a String
      * @param charset the used Charset for the conversion to Bytes
      */
+    @JvmOverloads
     fun setRequestBody(b: String, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toByteArray(charset) }
 
     /**
@@ -60,6 +61,7 @@ class HttpRequest(private val url: String,
      * @param charset the used Charset for the conversion to Bytes
      * @see setContentType you may want to set Json as a ContentType
      */
+    @JvmOverloads
     fun setRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
 
     /**

@@ -4,7 +4,6 @@ package de.dani09.http
  * This Class is providing shortcuts to create HttpRequest objects
  * @see HttpRequest
  */
-@Suppress("unused")
 object Http {
     /**
      * Creates a HttpRequest with the given Url and sets the HttpMethod to "GET"

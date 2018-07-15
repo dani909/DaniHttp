@@ -13,7 +13,6 @@ import java.util.*
  * @property jSONArray Provides the Response as a JSONArray
  * @see HttpRequest
  */
-@Suppress("unused", "UNUSED_PARAMETER", "MemberVisibilityCanBePrivate")
 open class HttpResponse(val responseCode: Int,
                         val response: ByteArray,
                         private val responseHeaders: Map<String, String>) {
