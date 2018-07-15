@@ -9,5 +9,6 @@ class HttpResponseDummyTest {
         val res = HttpResponseDummy(8)
 
         assert(8, res.responseCode, "ResponseCode")
+        assert(HttpResponse(8, byteArrayOf(), mapOf()), res, "ResponseObject")
     }
 }
