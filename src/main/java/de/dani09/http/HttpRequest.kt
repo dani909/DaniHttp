@@ -8,6 +8,7 @@ import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.URL
 import java.nio.charset.Charset
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import javax.net.ssl.HttpsURLConnection
@@ -182,6 +183,30 @@ class HttpRequest(private val url: String,
                     .map { it.key to it.value.reduce { acc, s -> acc + s } }
                     .toMap()
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is HttpRequest) return false
+
+        if (url != other.url) return false
+        if (httpMethod != other.httpMethod) return false
+        if (requestHeaders != other.requestHeaders) return false
+        if (userAgent != other.userAgent) return false
+        if (!Arrays.equals(body, other.body)) return false
+        if (timeout != other.timeout) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = url.hashCode()
+        result = 31 * result + httpMethod.hashCode()
+        result = 31 * result + requestHeaders.hashCode()
+        result = 31 * result + userAgent.hashCode()
+        result = 31 * result + (body?.let { Arrays.hashCode(it) } ?: 0)
+        result = 31 * result + timeout
+        return result
     }
 }
 

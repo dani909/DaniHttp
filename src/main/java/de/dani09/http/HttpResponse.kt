@@ -2,6 +2,7 @@ package de.dani09.http
 
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 /**
  * This Class is the Output of the HttpRequest class
@@ -47,4 +48,24 @@ open class HttpResponse(val responseCode: Int,
      * Will return an empty String if no ContentType Header is present
      */
     fun getContentType(): String = getResponseHeader("Content-Type", false)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is HttpResponse) return false
+
+        if (responseCode != other.responseCode) return false
+        if (!Arrays.equals(response, other.response)) return false
+        if (responseHeaders != other.responseHeaders) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = responseCode
+        result = 31 * result + Arrays.hashCode(response)
+        result = 31 * result + responseHeaders.hashCode()
+        return result
+    }
+
+
 }
