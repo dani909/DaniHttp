@@ -1,4 +1,4 @@
-package de.dani09.http
+package de.dani09
 
 import java.util.*
 
@@ -36,5 +36,8 @@ object TestUtil {
             f()
         }
     }
+
+    @JvmStatic
+    fun getHttpBinUrl() = "https://httpbin.org"
 }
 

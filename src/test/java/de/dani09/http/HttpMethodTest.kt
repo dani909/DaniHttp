@@ -1,6 +1,6 @@
 package de.dani09.http
 
-import de.dani09.http.TestUtil.assert
+import de.dani09.TestUtil.assert
 import org.junit.Test
 
 class HttpMethodTest {

@@ -1,8 +1,8 @@
 package de.dani09.http.response
 
+import de.dani09.TestUtil
+import de.dani09.TestUtil.assert
 import de.dani09.http.HttpResponse
-import de.dani09.http.TestUtil
-import de.dani09.http.TestUtil.assert
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.Test
