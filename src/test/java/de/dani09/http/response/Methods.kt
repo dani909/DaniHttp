@@ -56,4 +56,15 @@ class Methods {
 
         assert(randomString, response.getContentType(), "ContentType2")
     }
+
+    @Test
+    fun contentType3() {
+        // With charset
+        val actual = "text/html"
+        val map = mapOf("Content-Type" to "text/html; charset=UTF-8")
+
+        val response = HttpResponse(0, byteArrayOf(), map)
+
+        assert(actual, response.getContentType(), "ContentType3")
+    }
 }

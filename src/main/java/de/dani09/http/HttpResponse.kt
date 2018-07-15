@@ -47,7 +47,13 @@ open class HttpResponse(val responseCode: Int,
      * Returns the ContentType the Server responded
      * Will return an empty String if no ContentType Header is present
      */
-    fun getContentType(): String = getResponseHeader("Content-Type", false)
+    fun getContentType(): String {
+        return getResponseHeader("Content-Type", false)
+                .split(";")
+                .map { it.replace("\\s".toRegex(), "") }
+                .filter { !it.toLowerCase().startsWith("charset=") }
+                .getOrElse(0) { "" }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
