@@ -111,4 +111,11 @@ class TestUtilTest {
                 "https?://.+\\.[a-z]{2,3}"
         )))
     }
+
+    @Test
+    fun getDani09DeUrl() {
+        assert(TestUtil.getDani09DeUrl().matches(Regex(
+                "https?://.+\\.[a-z]{2,3}"
+        )))
+    }
 }

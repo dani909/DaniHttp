@@ -39,5 +39,8 @@ object TestUtil {
 
     @JvmStatic
     fun getHttpBinUrl() = "https://httpbin.org"
+
+    @JvmStatic
+    fun getDani09DeUrl() = "https://dani09.de"
 }
 
