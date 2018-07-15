@@ -72,6 +72,4 @@ open class HttpResponse(val responseCode: Int,
         result = 31 * result + responseHeaders.hashCode()
         return result
     }
-
-
 }
