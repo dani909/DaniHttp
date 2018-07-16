@@ -81,8 +81,13 @@ tasks {
         dependsOn(fullJar)
         dependsOn(dokkaJar)
     }
-    "snapshot"{
-        project.version = "${project.version}-SNAPSHOT"
+    "snapshot" {
+        gradle.taskGraph.whenReady {
+            if (this.hasTask(tasks.getByName("snapshot"))) {
+
+                project.version = "${project.version}-SNAPSHOT"
+            }
+        }
     }
 }
 
