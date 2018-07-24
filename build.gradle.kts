@@ -1,4 +1,5 @@
 import groovy.util.Node
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jfrog.build.extractor.clientConfiguration.ArtifactoryClientConfiguration
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
@@ -134,5 +135,11 @@ project.publishing {
             }
 
         }
+    }
+}
+
+tasks.withType(Test::class.java) {
+    testLogging {
+        events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.STANDARD_OUT)
     }
 }
