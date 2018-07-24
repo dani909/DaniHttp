@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException
 import java.net.URL
 import java.nio.charset.Charset
 import java.util.*
+import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import javax.net.ssl.HttpsURLConnection
@@ -94,7 +95,11 @@ class HttpRequest(private val url: String,
      * Executes the Http Request as a Future
      * @see execute for more details
      */
-    fun executeAsFuture(): Future<*>? = Executors.newSingleThreadExecutor().submit { Executor(this).executeHttpRequest(true) }
+    fun executeAsFuture(): Future<HttpResponse> = Executors
+            .newSingleThreadExecutor()
+            .submit(Callable<HttpResponse> {
+                Executor(this).executeHttpRequest(true)
+            })
 
     private class Executor(private val request: HttpRequest) {
         /**
