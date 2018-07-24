@@ -23,7 +23,7 @@ class TimeOut {
 
         val delta = timeAfter - timeBefore
 
-        println("Delta: $delta. Max allowed Delta: ${timeOut + overDeltaOk}")
+        println("Selected TimeOut: $timeOut. Delta: $delta. Max allowed Delta: ${timeOut + overDeltaOk}")
 
         assert(delta < timeOut + overDeltaOk)
     }
