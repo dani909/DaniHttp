@@ -3,6 +3,8 @@ package de.dani09
 import java.util.*
 
 object TestUtil {
+    private val httpBinEnvName = "HTTP_BIN_URL"
+
     @JvmStatic
     fun generateRandomString(length: Int = 16, onlyLowerCase: Boolean = false): String {
         val smallLetters = "abcdefghijklmnopqrstuvwxyz"
@@ -38,7 +40,17 @@ object TestUtil {
     }
 
     @JvmStatic
-    fun getHttpBinUrl() = "https://httpbin.org"
+    fun getHttpBinUrl(): String {
+        // Checking if http bin override is provided
+        // This is used to be able to run it in an docker container to improve Test Speed
+        return if (System.getenv(httpBinEnvName) == null) {
+            // no url defined and therefor return normal url
+            "https://httpbin.org"
+        } else {
+            // url is defined. grab it from the environment variable
+            System.getenv(httpBinEnvName)
+        }
+    }
 
     @JvmStatic
     fun getDani09DeUrl() = "https://dani09.de"
