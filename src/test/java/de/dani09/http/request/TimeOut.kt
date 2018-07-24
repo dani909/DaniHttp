@@ -11,7 +11,7 @@ class TimeOut {
     fun timeOut1() {
         // Not so good but other wise the tests would be so slow...
         val timeOut = 1000
-        val overDeltaOk = 250
+        val overDeltaOk = 500
 
         val timeBefore = System.currentTimeMillis()
 
