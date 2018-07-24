@@ -108,7 +108,7 @@ class TestUtilTest {
     @Test
     fun getHttpBinUrl() {
         assert(TestUtil.getHttpBinUrl().matches(Regex(
-                "https?://.+\\.[a-z]{2,3}"
+                "https?://.+"
         )))
     }
 
