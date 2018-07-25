@@ -1,6 +1,7 @@
 package de.dani09.http.request
 
 import de.dani09.TestUtil
+import de.dani09.TestUtil.assert
 import de.dani09.http.Http
 import org.junit.Test
 
@@ -26,5 +27,14 @@ class TimeOut {
         println("Selected TimeOut: $timeOut. Delta: $delta. Max allowed Delta: ${timeOut + overDeltaOk}")
 
         assert(delta < timeOut + overDeltaOk)
+    }
+
+    @Test
+    fun timeOutResponseCode() {
+        val result = Http.get("$dani09de:81")
+                .setTimeOut(1)
+                .execute()
+
+        assert(0, result.responseCode, "TimeOutResponseCode")
     }
 }
