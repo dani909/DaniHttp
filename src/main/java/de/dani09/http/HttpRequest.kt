@@ -30,6 +30,7 @@ class HttpRequest(private val url: String,
     private var userAgent: String = "Mozilla/5.0"
     private var body: ByteArray? = null
     private var timeout: Int = 10000
+    private var readTimeout: Int = 10000
 
     /**
      * sets the UserAgent for the Request
@@ -72,15 +73,23 @@ class HttpRequest(private val url: String,
     fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
     /**
-     * Sets the maximal TimeOut in milliseconds for this HttpRequest
+     * Sets the maximal Timeout in milliseconds for this HttpRequest
      * Default value is 10000
+     * 0 stands for infinity
      */
     fun setTimeOut(timeout: Int) = apply { this.timeout = timeout }
 
     /**
+     * Sets the maximal Socket Read Timeout in milliseconds for this HttpRequest
+     * Default value is 10000
+     * 0 stands for infinity
+     */
+    fun setReadTimeOut(readTimeout: Int) = apply { this.readTimeout = readTimeout }
+
+    /**
      * Executes the Http Request and returns the Response
      * ResponseCode will be 0 if the Connection Timed Out
-     * @return will return the HttpResponse
+     * @return will return the HttpResponse of the executed HttpRequest
      */
     fun execute() = Executor(this).executeHttpRequest(true)!!
 
@@ -118,6 +127,8 @@ class HttpRequest(private val url: String,
                 setRequestBody(connection)
 
                 connection.connectTimeout = request.timeout
+                connection.readTimeout = request.readTimeout
+
                 connection.connect()
 
                 // Creating Response from connection
