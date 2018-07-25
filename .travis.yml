@@ -12,6 +12,9 @@ cache:
   - "$HOME/.gradle/wrapper/"
 
 before_install:
+- docker pull kennethreitz/httpbin & nohup # Pull Image in Background
+
+before_script:
 - docker run -d -p 80:80 kennethreitz/httpbin
 - export HTTP_BIN_URL="http://localhost:80"
 
