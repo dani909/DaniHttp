@@ -73,7 +73,7 @@ class HttpRequest(private val url: String,
     fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
     /**
-     * Sets the maximal Timeout in milliseconds for this HttpRequest
+     * Sets the maximal Socket Connect Timeout in milliseconds for this HttpRequest
      * Default value is 10000
      * 0 stands for infinity
      */
