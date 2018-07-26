@@ -64,6 +64,11 @@ class TestUtilTest {
         fun name() {
             TestUtil.assert(2, 1 + 1, "canAdd")
         }
+
+        @Test
+        fun invert() {
+            TestUtil.assert(2, 1, "", true)
+        }
     }
 
     class RunMultipleTimes {

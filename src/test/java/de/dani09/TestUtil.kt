@@ -24,12 +24,18 @@ object TestUtil {
 
     @JvmStatic
     @JvmOverloads
-    fun assert(expected: Any, actual: Any, name: String = "") {
-        if (name == "")
-            println("Expected: $expected Actual: $actual")
-        else
-            println("$name: Expected: \"$expected\" Actual: \"$actual\"")
-        assert(expected == actual)
+    fun assert(expected: Any, actual: Any, name: String = "", invertAssertion: Boolean = false) {
+        if (name != "")
+            print("$name: ")
+
+
+        if (invertAssertion) {
+            print("Not Allowed: $expected Actual: $actual\n")
+            assert(expected != actual)
+        } else {
+            print("Expected: $expected Actual: $actual\n")
+            assert(expected == actual)
+        }
     }
 
     @JvmStatic
