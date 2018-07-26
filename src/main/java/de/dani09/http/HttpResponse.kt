@@ -59,8 +59,9 @@ open class HttpResponse(val responseCode: Int,
         if (other !is HttpResponse) return false
 
         if (responseCode != other.responseCode) return false
+        if (response.size != other.response.size) return false
         if (!Arrays.equals(response, other.response)) return false
-        if (responseHeaders != other.responseHeaders) return false
+        if (responseHeaders.map { it.key.toLowerCase() to it.value } != other.responseHeaders.map { it.key.toLowerCase() to it.value }) return false
 
         return true
     }
@@ -68,7 +69,7 @@ open class HttpResponse(val responseCode: Int,
     override fun hashCode(): Int {
         var result = responseCode
         result = 31 * result + Arrays.hashCode(response)
-        result = 31 * result + responseHeaders.hashCode()
+        result = 31 * result + responseHeaders.map { it.key.toLowerCase() to it.value }.hashCode()
         return result
     }
 }
