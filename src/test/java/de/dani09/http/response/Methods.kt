@@ -3,6 +3,7 @@ package de.dani09.http.response
 import de.dani09.TestUtil
 import de.dani09.TestUtil.assert
 import de.dani09.http.HttpResponse
+import de.dani09.http.HttpResponseDummy
 import org.junit.Test
 
 class Methods {
@@ -66,5 +67,30 @@ class Methods {
         val response = HttpResponse(0, byteArrayOf(), map)
 
         assert(actual, response.getContentType(), "ContentType3")
+    }
+
+    @Test
+    fun contentLength1() {
+        val response = HttpResponseDummy(0)
+
+        assert(-1L, response.getContentLength(), "ContentLength1")
+    }
+
+    @Test
+    fun contentLength2() {
+        val actual = 1449L
+
+        val map = mapOf("Content-Length" to actual.toString())
+        val response = HttpResponse(0, byteArrayOf(), map)
+
+        assert(actual, response.getContentLength(), "ContentLength2")
+    }
+
+    @Test
+    fun contentLength3() {
+        val map = mapOf("Content-Length" to "SomeString")
+        val response = HttpResponse(0, byteArrayOf(), map)
+
+        assert(-1L, response.getContentLength(), "ContentLength2")
     }
 }

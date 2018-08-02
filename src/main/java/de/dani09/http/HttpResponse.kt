@@ -54,6 +54,14 @@ open class HttpResponse(val responseCode: Int,
                 .getOrElse(0) { "" }
     }
 
+    /**
+     * Returns the ContentLength that the Server responded
+     * Will return -1 if no ContentLength Header is present or is not an Long
+     */
+    fun getContentLength(): Long {
+        return getResponseHeader("Content-Length", false).toLongOrNull() ?: -1
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HttpResponse) return false
