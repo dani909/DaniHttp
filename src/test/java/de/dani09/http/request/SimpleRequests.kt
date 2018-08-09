@@ -1,11 +1,9 @@
 package de.dani09.http.request
 
-import de.dani09.TestUtil
 import de.dani09.TestUtil.assert
 import de.dani09.http.Http
+import de.dani09.httpBin
 import org.junit.Test
-
-private val httpBin = TestUtil.getHttpBinUrl()
 
 class SimpleRequests {
     @Test
