@@ -5,6 +5,8 @@
 
 ## Installation
 
+Replace X.Y.Z with the Version you want to use
+
 ### Maven
 
 Add this dependency to your Pom
@@ -14,6 +16,7 @@ Add this dependency to your Pom
     <dependency>
         <groupId>de.dani09</groupId>
         <artifactId>dani-http</artifactId>
+        <version>X.Y.Z</version>
     </dependency>
 </dependencies>
 ```
@@ -24,7 +27,7 @@ Add this dependency to your build.gradle
 
 ```groovy
 dependencies {
-    compile 'de.dani09:dani-http:0.+'
+    compile 'de.dani09:dani-http:X.Y.Z'
 }
 ```
 
@@ -33,7 +36,7 @@ to your build.gradle.kts instead
 
 ```groovy
 dependencies {
-    compile("de.dani09:dani-http:0.+")
+    compile("de.dani09:dani-http:X.Y.Z")
 }
 ```
 
@@ -42,7 +45,7 @@ dependencies {
 Add this dependency to your build.sbt
 
 ```sbtshell
-libraryDependencies += "de.dani09" % "dani-http" % "+"
+libraryDependencies += "de.dani09" % "dani-http" % "X.Y.Z"
 ```
 
 ## Usage
