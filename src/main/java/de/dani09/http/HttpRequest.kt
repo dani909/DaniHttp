@@ -138,6 +138,7 @@ class HttpRequest(private var url: String,
                 addRequestHeaders(connection)
                 setRequestBody(connection)
 
+                connection.instanceFollowRedirects = false
                 connection.connectTimeout = request.timeout
                 connection.readTimeout = request.readTimeout
 
