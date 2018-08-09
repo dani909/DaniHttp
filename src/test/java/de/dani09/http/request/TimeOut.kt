@@ -2,10 +2,9 @@ package de.dani09.http.request
 
 import de.dani09.TestUtil
 import de.dani09.TestUtil.assert
+import de.dani09.dani09de
 import de.dani09.http.Http
 import org.junit.Test
-
-private val dani09de = TestUtil.getDani09DeUrl()
 
 class TimeOut {
     @Test

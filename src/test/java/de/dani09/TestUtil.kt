@@ -2,8 +2,11 @@ package de.dani09
 
 import java.util.*
 
+val dani09de = TestUtil.getDani09DeUrl()
+val httpBin = TestUtil.getHttpBinUrl()
+
 object TestUtil {
-    private val httpBinEnvName = "HTTP_BIN_URL"
+    private const val httpBinEnvName = "HTTP_BIN_URL"
 
     @JvmStatic
     fun generateRandomString(length: Int = 16, onlyLowerCase: Boolean = false): String {
