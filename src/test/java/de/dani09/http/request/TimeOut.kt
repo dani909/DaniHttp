@@ -1,6 +1,5 @@
 package de.dani09.http.request
 
-import de.dani09.TestUtil
 import de.dani09.TestUtil.assert
 import de.dani09.dani09de
 import de.dani09.http.Http
