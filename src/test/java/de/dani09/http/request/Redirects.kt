@@ -33,4 +33,29 @@ class Redirects {
         assert(200, redirectedResult.responseCode, "redirectToHttpBinResponseCode")
         assert(actualSize, redirectedResult.getContentLength(), "redirectToHttpBinLength")
     }
+
+    @Test
+    fun relativeRedirect() {
+        val nonRedirectResponseCode = Http.get("$httpBin/relative-redirect/1")
+                .execute()
+                .responseCode
+
+        val redirectResponseCode = Http.get("$httpBin/relative-redirect/1")
+                .handleRedirects()
+                .execute()
+                .responseCode
+
+        assert(302, nonRedirectResponseCode, "relativeRedirectNonRedirect")
+        assert(200, redirectResponseCode, "relativeRedirectWithRedirect")
+    }
+
+    @Test
+    fun redirectOnlyOnce() {
+        val redirectResponseCode = Http.get("$httpBin/relative-redirect/2")
+                .handleRedirects(1)
+                .execute()
+                .responseCode
+
+        assert(302, redirectResponseCode, "redirectOnlyOnce")
+    }
 }
