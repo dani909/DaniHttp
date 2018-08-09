@@ -13,12 +13,11 @@ class Headers {
     fun userAgent() {
         val expected = TestUtil.generateRandomString(16)
 
-        val actual = Http.get("$httpBin/get")
+        val actual = Http.get("$httpBin/user-agent")
                 .setUserAgent(expected)
                 .execute()
                 .jSONObject
-                .getJSONObject("headers")
-                .getString("User-Agent")
+                .getString("user-agent")
 
         assert(expected, actual, "UserAgent")
     }
