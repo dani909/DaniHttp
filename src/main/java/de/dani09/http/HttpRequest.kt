@@ -5,6 +5,7 @@ import org.json.JSONObject
 import java.io.FileNotFoundException
 import java.net.ConnectException
 import java.net.HttpURLConnection
+import java.net.HttpURLConnection.HTTP_SEE_OTHER
 import java.net.SocketTimeoutException
 import java.net.URL
 import java.nio.charset.Charset
@@ -23,7 +24,7 @@ import javax.net.ssl.HttpsURLConnection
  * because each method is returning the current instance
  */
 @Suppress("unused")
-class HttpRequest(private val url: String,
+class HttpRequest(private var url: String,
                   private var httpMethod: HttpMethod) {
 
     private var requestHeaders: MutableMap<String, String> = mutableMapOf()
@@ -31,6 +32,7 @@ class HttpRequest(private val url: String,
     private var body: ByteArray? = null
     private var timeout: Int = 10000
     private var readTimeout: Int = 10000
+    private var maxRedirects: Int = 0
 
     /**
      * sets the UserAgent for the Request
@@ -87,6 +89,16 @@ class HttpRequest(private val url: String,
     fun setReadTimeOut(readTimeout: Int) = apply { this.readTimeout = readTimeout }
 
     /**
+     * Sets the max allowed Redirects the HttpRequest will follow
+     * Default value is 0 (do not follow them at all)
+     * Default param value is 1 to follow 1 redirect
+     * Do not set to like Integer.MAX_VALUE because you may block your Thread for ever if you get into an Ring Redirect
+     * @param maxRedirects maximum allowed Redirects to follow
+     */
+    @JvmOverloads
+    fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
+
+    /**
      * Executes the Http Request and returns the Response
      * ResponseCode will be 0 if the Connection Timed Out
      * @return will return the HttpResponse of the executed HttpRequest
@@ -115,8 +127,8 @@ class HttpRequest(private val url: String,
          * Will execute the given HttpRequest and return the Response
          * @param exceptions should Exceptions be thrown? if false it will return null if there was any exception
          */
-        fun executeHttpRequest(exceptions: Boolean = true): HttpResponse? {
-            val result: HttpResponse?
+        fun executeHttpRequest(exceptions: Boolean = true, redirectCount: Int = 0): HttpResponse? {
+            var result: HttpResponse?
             val connection: HttpURLConnection = getConnection()
 
             try {
@@ -137,6 +149,10 @@ class HttpRequest(private val url: String,
                         response = connection.inputStream.use { IOUtils.toByteArray(it) },
                         responseHeaders = processResponseHeaders(connection)
                 )
+
+                // Handle redirects if wanted
+                if (isRedirect(result, redirectCount))
+                    result = followRedirect(result, redirectCount, exceptions)
 
             } catch (e: Exception) {
                 return when (e::class) {
@@ -162,6 +178,30 @@ class HttpRequest(private val url: String,
             }
 
             return result
+        }
+
+        private fun followRedirect(response: HttpResponse, redirectCount: Int, exceptions: Boolean): HttpResponse? {
+            val r = request.also {} // make copy
+
+            // 303 See Other
+            if (response.responseCode == HTTP_SEE_OTHER)
+                r.httpMethod = HttpMethod.GET // as specified in RFC7231 6.4.4.
+
+            val location = response.getResponseHeader("location", false)
+
+            r.url = if (location.startsWith("/")) {
+                // Relative Location
+                val u = URL(r.url)
+                "${u.protocol}://${u.authority}$location"
+            } else
+                location // Absolute Location
+
+            return Executor(r).executeHttpRequest(exceptions, redirectCount + 1)
+        }
+
+        private fun isRedirect(response: HttpResponse, redirectCount: Int): Boolean {
+            return redirectCount < request.maxRedirects &&
+                    response.isRedirect()
         }
 
         private fun getConnection(): HttpURLConnection {
@@ -196,7 +236,7 @@ class HttpRequest(private val url: String,
         private fun processResponseHeaders(connection: HttpURLConnection): Map<String, String> {
             return connection.headerFields
                     .filter { it.key != null }
-                    .filter { it.value != null && it.value.count { it == null } == 0 }
+                    .filter { it.value != null && it.value.count { str -> str == null } == 0 }
                     .filter { it.value.size > 0 }
                     .map { it.key to it.value.reduce { acc, s -> acc + s } }
                     .toMap()
