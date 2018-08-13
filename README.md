@@ -48,6 +48,10 @@ Add this dependency to your build.sbt
 libraryDependencies += "de.dani09" % "dani-http" % "X.Y.Z"
 ```
 
+## Documentation
+
+Javadoc and KDoc can be found at [dani909.github.io/DaniHttp](https://dani909.github.io/DaniHttp)
+
 ## Usage
 First import the Library
 
