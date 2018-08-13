@@ -22,6 +22,9 @@ import javax.net.ssl.HttpsURLConnection
  *
  * You can make HttpRequests in an Builder like pattern
  * because each method is returning the current instance
+ *
+ * @property url the Url on which the Request will performed on
+ * @property httpMethod the Http method that will be used to perform the Request
  */
 @Suppress("unused")
 class HttpRequest(private var url: String,
@@ -244,6 +247,11 @@ class HttpRequest(private var url: String,
         }
     }
 
+    /**
+     * Checks if this instance is the same as the passed Parameter
+     * @param other the other instance that you want to check
+     * @return returns true if it has the same values
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HttpRequest) return false
@@ -258,6 +266,10 @@ class HttpRequest(private var url: String,
         return true
     }
 
+    /**
+     * Calculates the HashCode of this instance
+     * @return returns the calculated hashCode
+     */
     override fun hashCode(): Int {
         var result = url.hashCode()
         result = 31 * result + httpMethod.hashCode()

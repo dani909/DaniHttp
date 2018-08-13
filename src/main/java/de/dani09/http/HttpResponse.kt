@@ -6,8 +6,9 @@ import java.util.*
 
 /**
  * This Class is the Output of the HttpRequest class
- * @property response Provides the Response as an ByteArray
  * @property responseCode Provides the ResponseCode of the HttpRequest will be 0 if the Request Timed Out
+ * @property response Provides the Response as an ByteArray
+ * @property responseHeaders a map of all Headers from the Response
  * @property responseString Provides the Response as a String
  * @property jSONObject Provides the Response as a JSONObject
  * @property jSONArray Provides the Response as a JSONArray
@@ -70,6 +71,11 @@ open class HttpResponse(val responseCode: Int,
                 getResponseHeader("location", false) != ""
     }
 
+    /**
+     * Checks if this instance is the same as the passed Parameter
+     * @param other the other instance that you want to check
+     * @return returns true if it has the same values
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is HttpResponse) return false
@@ -82,6 +88,10 @@ open class HttpResponse(val responseCode: Int,
         return true
     }
 
+    /**
+     * Calculates the HashCode of this instance
+     * @return returns the calculated hashCode
+     */
     override fun hashCode(): Int {
         var result = responseCode
         result = 31 * result + Arrays.hashCode(response)
