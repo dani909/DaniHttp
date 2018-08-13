@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <title>HttpRequest.handleRedirects - </title>
+    <link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">de.dani09.http</a>&nbsp;/&nbsp;<a href="index.html">HttpRequest</a>&nbsp;/&nbsp;<a
+        href="./handle-redirects.html">handleRedirects</a><br/>
+<br/>
+<h1>handleRedirects</h1>
+<a name="de.dani09.http.HttpRequest$handleRedirects(kotlin.Int)"></a>
+<code><span class="identifier">@JvmOverloads</span> <span class="keyword">fun </span><span class="identifier">handleRedirects</span><span
+        class="symbol">(</span><span class="identifier"
+                                     id="de.dani09.http.HttpRequest$handleRedirects(kotlin.Int)/maxRedirects">maxRedirects</span><span
+        class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span
+        class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;1<span class="symbol">)</span><span
+        class="symbol">: </span><a href="index.html"><span class="identifier">HttpRequest</span></a></code>
+<p>Sets the max allowed Redirects the HttpRequest will follow
+    Default value is 0 (do not follow them at all)
+    Default param value is 1 to follow 1 redirect
+    Do not set to like Integer.MAX_VALUE because you may block your Thread for ever if you get into an Ring Redirect</p>
+<h3>Parameters</h3>
+<p><a name="maxRedirects"></a>
+    <code>maxRedirects</code> - maximum allowed Redirects to follow</p>
+</BODY>
+</HTML>
