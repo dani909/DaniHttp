@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <title>HttpResponse - </title>
+    <link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">de.dani09.http</a>&nbsp;/&nbsp;<a href="./index.html">HttpResponse</a><br/>
+<br/>
+<h1>HttpResponse</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">HttpResponse</span></code>
+<p>This Class is the Output of the HttpRequest class</p>
+<h3>Constructors</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="-init-.html">&lt;init&gt;</a></p>
+        </td>
+        <td>
+            <code><span class="identifier">HttpResponse</span><span class="symbol">(</span><span class="identifier"
+                                                                                                 id="de.dani09.http.HttpResponse$<init>(kotlin.Int, kotlin.ByteArray, kotlin.collections.Map((kotlin.String, )))/responseCode">responseCode</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span
+                    class="symbol">, </span><span class="identifier"
+                                                  id="de.dani09.http.HttpResponse$<init>(kotlin.Int, kotlin.ByteArray, kotlin.collections.Map((kotlin.String, )))/response">response</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span
+                    class="identifier">ByteArray</span></a><span class="symbol">, </span><span class="identifier"
+                                                                                               id="de.dani09.http.HttpResponse$<init>(kotlin.Int, kotlin.ByteArray, kotlin.collections.Map((kotlin.String, )))/responseHeaders">responseHeaders</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span
+                    class="identifier">Map</span></a><span class="symbol">&lt;</span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">&gt;</span><span
+                    class="symbol">)</span></code>
+            <p>This Class is the Output of the HttpRequest class</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>Properties</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="j-s-o-n-array.html">jSONArray</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">val </span><span class="identifier">jSONArray</span><span
+                    class="symbol">: </span><span class="identifier">JSONArray</span></code>
+            <p>Provides the Response as a JSONArray</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="j-s-o-n-object.html">jSONObject</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">val </span><span class="identifier">jSONObject</span><span
+                    class="symbol">: </span><span class="identifier">JSONObject</span></code>
+            <p>Provides the Response as a JSONObject</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="response.html">response</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">val </span><span class="identifier">response</span><span
+                    class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span
+                    class="identifier">ByteArray</span></a></code>
+            <p>Provides the Response as an ByteArray</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="response-code.html">responseCode</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">val </span><span class="identifier">responseCode</span><span
+                    class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+            <p>Provides the ResponseCode of the HttpRequest will be 0 if the Request Timed Out</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="response-string.html">responseString</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">val </span><span class="identifier">responseString</span><span
+                    class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a></code>
+            <p>Provides the Response as a String</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>Functions</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="equals.html">equals</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">open</span> <span class="keyword">fun </span><span
+                    class="identifier">equals</span><span class="symbol">(</span><span class="identifier"
+                                                                                       id="de.dani09.http.HttpResponse$equals(kotlin.Any)/other">other</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span
+                    class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span
+                    class="identifier">Boolean</span></a></code></td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="get-content-length.html">getContentLength</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">getContentLength</span><span class="symbol">(</span><span
+                    class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span
+                    class="identifier">Long</span></a></code>
+            <p>Returns the ContentLength that the Server responded</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="get-content-type.html">getContentType</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">getContentType</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a></code>
+            <p>Returns the ContentType the Server responded
+                Will return an empty String if no ContentType Header is present</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="get-response-header.html">getResponseHeader</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">getResponseHeader</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpResponse$getResponseHeader(kotlin.String, kotlin.Boolean)/key">key</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">, </span><span class="identifier"
+                                                                                            id="de.dani09.http.HttpResponse$getResponseHeader(kotlin.String, kotlin.Boolean)/caseSensitive">caseSensitive</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span
+                    class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span
+                    class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a></code>
+            <p>Returns the ResponseHeader from the Http Response identified by the Key
+                Will return an empty String if the Header was not found</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="hash-code.html">hashCode</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">open</span> <span class="keyword">fun </span><span
+                    class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span
+                    class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="is-redirect.html">isRedirect</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">isRedirect</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span
+                    class="identifier">Boolean</span></a></code>
+            <p>Checks if responseCode is an redirect code and if an location header is present</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="../-http-response-dummy/index.html">HttpResponseDummy</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">class </span><span class="identifier">HttpResponseDummy</span>&nbsp;<span
+                    class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">HttpResponse</span></a></code>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</BODY>
+</HTML>
