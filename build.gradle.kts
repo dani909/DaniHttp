@@ -54,8 +54,13 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-val dokka by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
+val dokkaHtml by tasks.creating(org.jetbrains.dokka.gradle.DokkaTask::class) {
     outputFormat = "html"
+    outputDirectory = "$buildDir/htmldoc"
+}
+
+val dokka by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class) {
+    outputFormat = "javadoc"
     outputDirectory = "$buildDir/javadoc"
 }
 
@@ -81,6 +86,7 @@ tasks {
         dependsOn(sourcesJar)
         dependsOn(fullJar)
         dependsOn(dokkaJar)
+        dependsOn(dokkaHtml)
     }
     "snapshot"{
         if (project.hasProperty("snapshot") && project.property("snapshot") is String) {
