@@ -5,9 +5,13 @@ package de.dani09.http
  * @see HttpRequest
  */
 enum class HttpMethod {
+    /** GET will be an HTTP "GET" */
     GET,
+    /** POST will be an HTTP "POST" */
     POST,
+    /** PUT will be an HTTP "PUT" */
     PUT,
+    /** DELETE will be an HTTP "DELETE" */
     DELETE;
 
     /**
