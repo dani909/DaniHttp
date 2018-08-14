@@ -7,6 +7,8 @@
 
 Replace X.Y.Z with the Version you want to use
 
+You can find the current Version on the Badges above
+
 ### Maven
 
 Add this dependency to your Pom
