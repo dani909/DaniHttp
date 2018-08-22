@@ -99,7 +99,7 @@ class HttpRequest(private var url: String,
      * @param maxRedirects maximum allowed Redirects to follow
      */
     @JvmOverloads
-    fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
+    fun handleRedirects(maxRedirects: Int = 0) = apply { this.maxRedirects = maxRedirects }
 
     /**
      * Executes the Http Request and returns the Response
