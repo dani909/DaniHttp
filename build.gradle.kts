@@ -106,7 +106,7 @@ project.publishing {
             }
 
             credentials {
-                username = System.getenv("BINTRAY_USER")
+                username = System.getenv("dani09")
                 password = System.getenv("BINTRAY_API_KEY")
             }
         }
