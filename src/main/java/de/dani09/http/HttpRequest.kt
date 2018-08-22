@@ -93,13 +93,12 @@ class HttpRequest(private var url: String,
 
     /**
      * Sets the max allowed Redirects the HttpRequest will follow
-     * Default value is 0 (do not follow them at all)
      * Default param value is 1 to follow 1 redirect
      * Do not set to like Integer.MAX_VALUE because you may block your Thread for ever if you get into an Ring Redirect
      * @param maxRedirects maximum allowed Redirects to follow
      */
     @JvmOverloads
-    fun handleRedirects(maxRedirects: Int = 0) = apply { this.maxRedirects = maxRedirects }
+    fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
 
     /**
      * Executes the Http Request and returns the Response
