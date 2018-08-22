@@ -5,7 +5,7 @@ import org.jfrog.build.extractor.clientConfiguration.ArtifactoryClientConfigurat
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 
 group = "de.dani09"
-version = "0.3.1"
+version = "0.4.0"
 
 buildscript {
     var kotlinVersion: String by extra
