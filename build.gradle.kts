@@ -44,7 +44,7 @@ dependencies {
     testCompile("junit", "junit", "4.12")
 
     compile("commons-io:commons-io:2.6")
-    compile("org.json:json:20180130")
+    compile("org.json:json:20180813")
 }
 
 configure<JavaPluginConvention> {
