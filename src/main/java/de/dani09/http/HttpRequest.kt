@@ -36,6 +36,7 @@ class HttpRequest(private var url: String,
     private var timeout: Int = 10000
     private var readTimeout: Int = 10000
     private var maxRedirects: Int = 0
+    private var progressListeners: MutableList<HttpProgressListener> = mutableListOf()
 
     /**
      * sets the UserAgent for the Request
@@ -125,6 +126,13 @@ class HttpRequest(private var url: String,
                 Executor(this).executeHttpRequest(true)
             })
 
+    /**
+     * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing
+     * @param listener the listener you want to add
+     * @see HttpProgressListener
+     */
+    fun addProgressListener(listener: HttpProgressListener) = apply { this.progressListeners.add(listener) }
+
     private class Executor(private val request: HttpRequest) {
         /**
          * Will execute the given HttpRequest and return the Response
@@ -147,12 +155,7 @@ class HttpRequest(private var url: String,
 
                 connection.connect()
 
-                // Creating Response from connection
-                result = HttpResponse(
-                        responseCode = connection.responseCode,
-                        response = connection.inputStream.use { IOUtils.toByteArray(it) },
-                        responseHeaders = processResponseHeaders(connection)
-                )
+                result = getHttpResponse(connection, request, redirectCount)
 
                 // Handle redirects if wanted
                 if (isRedirect(result, redirectCount))
@@ -182,6 +185,52 @@ class HttpRequest(private var url: String,
             }
 
             return result
+        }
+
+        private fun getHttpResponse(connection: HttpURLConnection, request: HttpRequest, redirectCount: Int): HttpResponse {
+            val responseHeaders = processResponseHeaders(connection)
+            val responseCode = connection.responseCode
+
+            val smallResponse = HttpResponse(
+                    responseCode = responseCode,
+                    response = byteArrayOf(),
+                    responseHeaders = responseHeaders
+            )
+
+            if (isRedirect(smallResponse, redirectCount))
+                return HttpResponse(
+                        responseCode = responseCode,
+                        response = connection.inputStream.use { IOUtils.toByteArray(it) },
+                        responseHeaders = responseHeaders
+                )
+
+            val length = connection.contentLengthLong
+            request.progressListeners.forEach { it.onStart(length) }
+
+            val stream = connection.inputStream
+            var response: ByteArray = byteArrayOf()
+            val buffer = ByteArray(2048)
+            var byteCount = 0
+            var bytesRead = 0L
+            while (byteCount != -1) {
+                byteCount = stream.read(buffer, 0, 2048)
+
+                if (byteCount != -1) {
+                    bytesRead += byteCount
+                    response += buffer
+                    request.progressListeners.forEach { it.onProgress(bytesRead, length) }
+                    if (length > 0)
+                        request.progressListeners.forEach { it.onProgress(bytesRead / length.toDouble() * 100) }
+                }
+            }
+
+            request.progressListeners.forEach { it.onFinish() }
+
+            return HttpResponse(
+                    responseCode = responseCode,
+                    response = response,
+                    responseHeaders = responseHeaders
+            )
         }
 
         private fun followRedirect(response: HttpResponse, redirectCount: Int, exceptions: Boolean): HttpResponse? {
