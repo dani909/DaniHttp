@@ -2,9 +2,6 @@ package de.dani09
 
 import java.util.*
 
-val dani09de = TestUtil.getDani09DeUrl()
-val httpBin = TestUtil.getHttpBinUrl()
-
 object TestUtil {
     private const val httpBinEnvName = "HTTP_BIN_URL"
 
