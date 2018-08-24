@@ -104,6 +104,23 @@ class HttpRequest(private var url: String,
     fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
 
     /**
+     * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing
+     * @param listener the listener you want to add
+     * @see HttpProgressListener
+     */
+    fun addProgressListener(listener: HttpProgressListener) = apply { this.progressListeners.add(listener) }
+
+    /**
+     * set an OutputStream as an output of the HttpRequest
+     * if provided it will write the responseBody into this OutputStream instead of providing it to the HttpResponse
+     * Note that HttpResponse.getResponse will return an empty byteArray if an OutputStream is used!
+     * @param stream the OutputStream that should be written the http body to
+     */
+    fun setOutputStream(stream: OutputStream) = apply { this.outputStream = stream }
+
+
+
+    /**
      * Executes the Http Request and returns the Response
      * ResponseCode will be 0 if the Connection Timed Out
      * @return will return the HttpResponse of the executed HttpRequest
@@ -126,21 +143,6 @@ class HttpRequest(private var url: String,
             .submit(Callable<HttpResponse> {
                 Executor(this).executeHttpRequest(true)
             })
-
-    /**
-     * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing
-     * @param listener the listener you want to add
-     * @see HttpProgressListener
-     */
-    fun addProgressListener(listener: HttpProgressListener) = apply { this.progressListeners.add(listener) }
-
-    /**
-     * set an OutputStream as an output of the HttpRequest
-     * if provided it will write the responseBody into this OutputStream instead of providing it to the HttpResponse
-     * Note that HttpResponse.getResponse will return an empty byteArray if an OutputStream is used!
-     * @param stream the OutputStream that should be written the http body to
-     */
-    fun setOutputStream(stream: OutputStream) = apply { this.outputStream = stream }
 
     private class Executor(private val request: HttpRequest) {
 
@@ -321,6 +323,8 @@ class HttpRequest(private var url: String,
                     .toMap()
         }
     }
+
+    // equals and hashCode
 
     /**
      * Checks if this instance is the same as the passed Parameter
