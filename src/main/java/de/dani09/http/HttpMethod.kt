@@ -12,7 +12,9 @@ enum class HttpMethod {
     /** PUT will be an HTTP "PUT" */
     PUT,
     /** DELETE will be an HTTP "DELETE" */
-    DELETE;
+    DELETE,
+    /** HEAD will be an HTTP "HEAD" */
+    HEAD;
 
     /**
      * Converts Enum to a String
@@ -24,5 +26,6 @@ enum class HttpMethod {
         POST -> "POST"
         PUT -> "PUT"
         DELETE -> "DELETE"
+        HEAD -> "HEAD"
     }
 }

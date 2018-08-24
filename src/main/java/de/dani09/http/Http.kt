@@ -32,4 +32,11 @@ object Http {
      */
     @JvmStatic
     fun delete(url: String): HttpRequest = HttpRequest(url, HttpMethod.DELETE)
+
+    /**
+     * Creates a HttpRequest with the given Url and sets the HttpMethod to "HEAD"
+     * @param url provides the Url to the HttpRequest
+     */
+    @JvmStatic
+    fun head(url: String): HttpRequest = HttpRequest(url, HttpMethod.HEAD)
 }
