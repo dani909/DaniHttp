@@ -2,7 +2,9 @@ package de.dani09.http
 
 import org.apache.commons.io.IOUtils
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
+import java.io.OutputStream
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.HttpURLConnection.HTTP_SEE_OTHER
@@ -37,6 +39,7 @@ class HttpRequest(private var url: String,
     private var readTimeout: Int = 10000
     private var maxRedirects: Int = 0
     private var progressListeners: MutableList<HttpProgressListener> = mutableListOf()
+    private var outputStream: OutputStream? = null
 
     /**
      * sets the UserAgent for the Request
@@ -102,6 +105,23 @@ class HttpRequest(private var url: String,
     fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
 
     /**
+     * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing
+     * @param listener the listener you want to add
+     * @see HttpProgressListener
+     */
+    fun addProgressListener(listener: HttpProgressListener) = apply { this.progressListeners.add(listener) }
+
+    /**
+     * set an OutputStream as an output of the HttpRequest
+     * if provided it will write the responseBody into this OutputStream instead of providing it to the HttpResponse
+     * Note that HttpResponse.getResponse will return an empty byteArray if an OutputStream is used!
+     * @param stream the OutputStream that should be written the http body to
+     */
+    fun setOutputStream(stream: OutputStream) = apply { this.outputStream = stream }
+
+
+
+    /**
      * Executes the Http Request and returns the Response
      * ResponseCode will be 0 if the Connection Timed Out
      * @return will return the HttpResponse of the executed HttpRequest
@@ -125,14 +145,8 @@ class HttpRequest(private var url: String,
                 Executor(this).executeHttpRequest(true)
             })
 
-    /**
-     * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing
-     * @param listener the listener you want to add
-     * @see HttpProgressListener
-     */
-    fun addProgressListener(listener: HttpProgressListener) = apply { this.progressListeners.add(listener) }
-
     private class Executor(private val request: HttpRequest) {
+
         /**
          * Will execute the given HttpRequest and return the Response
          * @param exceptions should Exceptions be thrown? if false it will return null if there was any exception
@@ -203,11 +217,26 @@ class HttpRequest(private var url: String,
                         responseHeaders = responseHeaders
                 )
 
+            return if (request.outputStream == null) {
+                val stream = ByteArrayOutputStream()
+                readInToOutputStream(connection, request.progressListeners, stream)
+
+                HttpResponse(
+                        responseCode = responseCode,
+                        response = stream.toByteArray(),
+                        responseHeaders = responseHeaders
+                )
+            } else {
+                readInToOutputStream(connection, request.progressListeners, request.outputStream!!)
+                smallResponse
+            }
+        }
+
+        fun readInToOutputStream(connection: HttpURLConnection, progressListeners: List<HttpProgressListener>, outputStream: OutputStream) {
             val length = connection.contentLengthLong
-            request.progressListeners.forEach { it.onStart(length) }
+            progressListeners.forEach { it.onStart(length) }
 
             val stream = connection.inputStream
-            var response: ByteArray = byteArrayOf()
             val buffer = ByteArray(2048)
             var byteCount = 0
             var bytesRead = 0L
@@ -216,20 +245,16 @@ class HttpRequest(private var url: String,
 
                 if (byteCount != -1) {
                     bytesRead += byteCount
-                    response += buffer
-                    request.progressListeners.forEach { it.onProgress(bytesRead, length) }
+
+                    outputStream.write(buffer, 0, byteCount)
+
+                    progressListeners.forEach { it.onProgress(bytesRead, length) }
                     if (length > 0)
-                        request.progressListeners.forEach { it.onProgress(bytesRead / length.toDouble() * 100) }
+                        progressListeners.forEach { it.onProgress(bytesRead / length.toDouble() * 100) }
                 }
             }
 
-            request.progressListeners.forEach { it.onFinish() }
-
-            return HttpResponse(
-                    responseCode = responseCode,
-                    response = response,
-                    responseHeaders = responseHeaders
-            )
+            progressListeners.forEach { it.onFinish() }
         }
 
         private fun followRedirect(response: HttpResponse, redirectCount: Int, exceptions: Boolean): HttpResponse? {
@@ -294,6 +319,8 @@ class HttpRequest(private var url: String,
                     .toMap()
         }
     }
+
+    // equals and hashCode
 
     /**
      * Checks if this instance is the same as the passed Parameter
