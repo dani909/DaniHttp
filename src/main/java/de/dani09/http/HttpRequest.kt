@@ -2,6 +2,7 @@ package de.dani09.http
 
 import org.apache.commons.io.IOUtils
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.OutputStream
 import java.net.ConnectException
@@ -216,21 +217,26 @@ class HttpRequest(private var url: String,
                         responseHeaders = responseHeaders
                 )
 
-            val response: ByteArray = readInputStream(connection, request)
+            return if (request.outputStream == null) {
+                val stream = ByteArrayOutputStream()
+                readInToOutputStream(connection, request.progressListeners, stream)
 
-            return HttpResponse(
-                    responseCode = responseCode,
-                    response = response,
-                    responseHeaders = responseHeaders
-            )
+                HttpResponse(
+                        responseCode = responseCode,
+                        response = stream.toByteArray(),
+                        responseHeaders = responseHeaders
+                )
+            } else {
+                readInToOutputStream(connection, request.progressListeners, request.outputStream!!)
+                smallResponse
+            }
         }
 
-        fun readInputStream(connection: HttpURLConnection, request: HttpRequest): ByteArray {
+        fun readInToOutputStream(connection: HttpURLConnection, progressListeners: List<HttpProgressListener>, outputStream: OutputStream) {
             val length = connection.contentLengthLong
-            request.progressListeners.forEach { it.onStart(length) }
+            progressListeners.forEach { it.onStart(length) }
 
             val stream = connection.inputStream
-            var response: ByteArray = byteArrayOf()
             val buffer = ByteArray(2048)
             var byteCount = 0
             var bytesRead = 0L
@@ -240,25 +246,15 @@ class HttpRequest(private var url: String,
                 if (byteCount != -1) {
                     bytesRead += byteCount
 
-                    response = processBytes(buffer, byteCount, response, request)
+                    outputStream.write(buffer, 0, byteCount)
 
-                    request.progressListeners.forEach { it.onProgress(bytesRead, length) }
+                    progressListeners.forEach { it.onProgress(bytesRead, length) }
                     if (length > 0)
-                        request.progressListeners.forEach { it.onProgress(bytesRead / length.toDouble() * 100) }
+                        progressListeners.forEach { it.onProgress(bytesRead / length.toDouble() * 100) }
                 }
             }
 
-            request.progressListeners.forEach { it.onFinish() }
-            return response
-        }
-
-        fun processBytes(bytes: ByteArray, byteCount: Int, response: ByteArray, request: HttpRequest): ByteArray {
-            if (request.outputStream != null)
-                request.outputStream!!.write(bytes, 0, byteCount)
-            else
-                return response + bytes
-
-            return response
+            progressListeners.forEach { it.onFinish() }
         }
 
         private fun followRedirect(response: HttpResponse, redirectCount: Int, exceptions: Boolean): HttpResponse? {
