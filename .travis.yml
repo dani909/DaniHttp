@@ -43,7 +43,7 @@ jobs:
       on:
         tags: true
         repo: dani909/DaniHttp
-        condition: "TRAVIS_PULL_REQUEST = false"
+        condition: "$TRAVIS_PULL_REQUEST = false"
 
     - provider: script
       script: ./gradlew publish -x test -Psnapshot
@@ -51,7 +51,7 @@ jobs:
       on:
         branch: master
         repo: dani909/DaniHttp
-        condition: "TRAVIS_PULL_REQUEST = false"
+        condition: "$TRAVIS_PULL_REQUEST = false"
 
     - provider: script
       script: ./gradlew publish
@@ -60,4 +60,4 @@ jobs:
         tags: true
         branch: master
         repo: dani909/DaniHttp
-        condition: "TRAVIS_PULL_REQUEST = false"
+        condition: "$TRAVIS_PULL_REQUEST = false"
