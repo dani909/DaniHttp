@@ -13,9 +13,6 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 
-env:
-- secure: "vUdYkhUo/a/XVi9jmKhYaarV4f1T6+ibUb40m2W4676BjJZ+7FefjvTl6AGONKo3/o4myKtnQrvC59a7pWbzmF9jptPobk7NjR5DQk6ewLONWaD+xFBCpp2mcJV/Z5mLORFl75BEtrtjHYs0nL6jd7kubn7A+MAkFvL/NEudz5Hcer2nwqZKWExSsOqB5hoc+4vcQ3Mz4wOZLIh6QgsFELIZW+iDpYE7tLjxqbGSVjcbarDLzQbeUQwBcHXvkosJ3BEwkR+P71STTU7sJFsQApUdE9+yI5QWM2h11rpncxa8jqj9WsiVubxMCQ90bHpnsZucGgbEIKQItkgLAZhCpEx8VxXZz3jX9R+2R5Gu8XXlPqOTZjqfcGaZcp9q0QyFOHKIXW+y6QPS+5yJ+Uvue2lHP+lASM9HkS0SttL/l1ynUPh9eYAeUKOqHjIB+9S0I5Hl4UbkhbBc2Z9njCD8fGvuoUYZld65qI/Q32U9qX8Ie6j7tSLhB7Fm030jNROOjuwPwRs40uc5I1KuskJu40Op28OLoAZRJvyLBMOZTlQx0mFHmzeyBqY431MI2paCMAgHBR1TpW6zUTe9eoe+ZiXcmMq26tXEUI44/4GvcXllpIu0ZwTpDYYoYnUrUVhqxymDerkKnReZ+QShnWonUUZifspynr5CEc38XrnHij4="
-
 before_install:
 - docker pull kennethreitz/httpbin > /dev/null 2>&1 & # Pull Image in Background
 
@@ -31,7 +28,11 @@ stages:
 jobs:
   include:
   - stage: deploy
-    script: ./gradlew build -x test
+    script: skip
+    before_script: skip
+    before_install: skip
+    env:
+    - secure: "vUdYkhUo/a/XVi9jmKhYaarV4f1T6+ibUb40m2W4676BjJZ+7FefjvTl6AGONKo3/o4myKtnQrvC59a7pWbzmF9jptPobk7NjR5DQk6ewLONWaD+xFBCpp2mcJV/Z5mLORFl75BEtrtjHYs0nL6jd7kubn7A+MAkFvL/NEudz5Hcer2nwqZKWExSsOqB5hoc+4vcQ3Mz4wOZLIh6QgsFELIZW+iDpYE7tLjxqbGSVjcbarDLzQbeUQwBcHXvkosJ3BEwkR+P71STTU7sJFsQApUdE9+yI5QWM2h11rpncxa8jqj9WsiVubxMCQ90bHpnsZucGgbEIKQItkgLAZhCpEx8VxXZz3jX9R+2R5Gu8XXlPqOTZjqfcGaZcp9q0QyFOHKIXW+y6QPS+5yJ+Uvue2lHP+lASM9HkS0SttL/l1ynUPh9eYAeUKOqHjIB+9S0I5Hl4UbkhbBc2Z9njCD8fGvuoUYZld65qI/Q32U9qX8Ie6j7tSLhB7Fm030jNROOjuwPwRs40uc5I1KuskJu40Op28OLoAZRJvyLBMOZTlQx0mFHmzeyBqY431MI2paCMAgHBR1TpW6zUTe9eoe+ZiXcmMq26tXEUI44/4GvcXllpIu0ZwTpDYYoYnUrUVhqxymDerkKnReZ+QShnWonUUZifspynr5CEc38XrnHij4="
     deploy:
     - provider: releases
       api_key:
@@ -42,6 +43,7 @@ jobs:
       on:
         tags: true
         repo: dani909/DaniHttp
+        condition: "TRAVIS_PULL_REQUEST = false"
 
     - provider: script
       script: ./gradlew publish -x test -Psnapshot
@@ -49,3 +51,13 @@ jobs:
       on:
         branch: master
         repo: dani909/DaniHttp
+        condition: "TRAVIS_PULL_REQUEST = false"
+
+    - provider: script
+      script: ./gradlew publish
+      skip_cleanup: true
+      on:
+        tags: true
+        branch: master
+        repo: dani909/DaniHttp
+        condition: "TRAVIS_PULL_REQUEST = false"
