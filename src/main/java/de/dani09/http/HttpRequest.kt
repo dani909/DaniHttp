@@ -43,6 +43,16 @@ class HttpRequest(internal var url: String,
      */
     fun addRequestHeader(headerName: String, headerValue: String): HttpRequest = apply { this.requestHeaders[headerName] = headerValue }
 
+    /**
+     * Sets the Content-Type Header for this HttpRequest
+     * @param contentType the Content-Type you wish to set
+     */
+    fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
+
+    /**
+     * Sets the "Connection" Header to "close" to disable KeepAlive
+     */
+    fun noKeepAlive() = addRequestHeader("Connection", "close")
 
     /**
      * Sets the body for the HttpRequest
@@ -66,12 +76,6 @@ class HttpRequest(internal var url: String,
      */
     @JvmOverloads
     fun setRequestBody(b: JSONObject, charset: Charset = Charsets.UTF_8): HttpRequest = apply { body = b.toString().toByteArray(charset) }
-
-    /**
-     * Sets the Content-Type Header for this HttpRequest
-     * @param contentType the Content-Type you wish to set
-     */
-    fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
 
     /**
