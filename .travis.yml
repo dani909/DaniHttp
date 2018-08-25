@@ -23,20 +23,29 @@ before_script:
 - docker run -d -p 80:80 kennethreitz/httpbin
 - export HTTP_BIN_URL="http://localhost:80"
 
-deploy:
-- provider: releases
-  api_key:
-    secure: asn4QE028VMCiJvRYN701Ga9zYCV6XQNne2WUfSyQyuKYYhHqkvyY1IRSvAI+UmKndHVcRQ0R/tUTpnNCrrDQGhsZt2TMG7bOFB6njLCjWakpDNV11kHs2kN3WcwNfomLAv+ctUVQAI48ugeFYCUWbThckqa2lZx5oJ1MCHpbfvbKJJUYyLRG8g+bAdc8FBjdn86sRARc4uhsTUCvJct9LV3eTIPWD3KZ5x25JvnZBZU6FUegqXQOCUs+GEAJcYHiXOJQOX9GtH8Ucfw0AVpRw1D45Dxoc9tTv9O2d0BTZHsZ1tAkg3FHS0Vk7lUKumINQ8eRsFbwi+wt4Dn+8oGRZKbkwD+NIclM2y+3w5hL4WinqhX0t4nReEWPOpNcR7cHJFA20pIB2QCamXNZwnyYJGQLROOX4uYatcmbrGJ5HZxRPJqKZ9mWVf1/Y/CfORhJjdbHQYlFZxtjKrkadaG86x/Ae7Ku0nYB7PZlnN7zh+8KIA4nafDOqQCH/HLjJ3qYd4O4nWyaOvzmUxR9Wa5DFo5x5UweHPvYMKCjbYljbtxr8jJgDbGKqsNOV+bDBv97PXPsYlqOBAE43aI7MG7Tg48KYHH59aEReW4BDmJfNrNGy5bEXua0enrjHOPUkSPKApP7yHnRESQMQwxARc3IdweAdrTqpvraUguJHRzsBQ=
-  file_glob: true
-  file: build/libs/*
-  skip_cleanup: true
-  on:
-    tags: true
-    repo: dani909/DaniHttp
+stage: test
+stages:
+- test
+- deploy
 
-- provider: script
-  script: ./gradlew publish -Psnapshot
-  skip_cleanup: true
-  on:
-    branch: master
-    repo: dani909/DaniHttp
+jobs:
+  include:
+  - stage: deploy
+    script: ./gradlew build -x test
+    deploy:
+    - provider: releases
+      api_key:
+        secure: asn4QE028VMCiJvRYN701Ga9zYCV6XQNne2WUfSyQyuKYYhHqkvyY1IRSvAI+UmKndHVcRQ0R/tUTpnNCrrDQGhsZt2TMG7bOFB6njLCjWakpDNV11kHs2kN3WcwNfomLAv+ctUVQAI48ugeFYCUWbThckqa2lZx5oJ1MCHpbfvbKJJUYyLRG8g+bAdc8FBjdn86sRARc4uhsTUCvJct9LV3eTIPWD3KZ5x25JvnZBZU6FUegqXQOCUs+GEAJcYHiXOJQOX9GtH8Ucfw0AVpRw1D45Dxoc9tTv9O2d0BTZHsZ1tAkg3FHS0Vk7lUKumINQ8eRsFbwi+wt4Dn+8oGRZKbkwD+NIclM2y+3w5hL4WinqhX0t4nReEWPOpNcR7cHJFA20pIB2QCamXNZwnyYJGQLROOX4uYatcmbrGJ5HZxRPJqKZ9mWVf1/Y/CfORhJjdbHQYlFZxtjKrkadaG86x/Ae7Ku0nYB7PZlnN7zh+8KIA4nafDOqQCH/HLjJ3qYd4O4nWyaOvzmUxR9Wa5DFo5x5UweHPvYMKCjbYljbtxr8jJgDbGKqsNOV+bDBv97PXPsYlqOBAE43aI7MG7Tg48KYHH59aEReW4BDmJfNrNGy5bEXua0enrjHOPUkSPKApP7yHnRESQMQwxARc3IdweAdrTqpvraUguJHRzsBQ=
+      file_glob: true
+      file: build/libs/*
+      skip_cleanup: true
+      on:
+        tags: true
+        repo: dani909/DaniHttp
+
+    - provider: script
+      script: ./gradlew publish -x test -Psnapshot
+      skip_cleanup: true
+      on:
+        branch: master
+        repo: dani909/DaniHttp
