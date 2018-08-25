@@ -6,6 +6,7 @@ import de.dani09.http.Http
 import de.dani09.http.HttpMethod
 import de.dani09.http.HttpRequest
 import org.junit.Test
+import java.lang.AssertionError
 
 class Head {
     @Test
@@ -30,10 +31,22 @@ class Head {
             return after - before
         }
 
-        val get = getRequestTime(HttpMethod.GET)
-        val head = getRequestTime(HttpMethod.HEAD)
+        var retries = 0
+        var passed = false
 
-        println("time get: $get ms. time head: $head ms")
-        assert(true, head < get, "HeadIsFasterThanGet1MB")
+        while (retries < 3 && !passed) {
+            try {
+                val get = getRequestTime(HttpMethod.GET)
+                val head = getRequestTime(HttpMethod.HEAD)
+
+                println("time get: $get ms. time head: $head ms")
+                assert(true, head < get, "HeadIsFasterThanGet1MB")
+
+                passed = true
+            } catch (x: AssertionError) {
+                if (retries >= 2) throw x
+            }
+            retries++
+        }
     }
 }
