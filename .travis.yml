@@ -49,3 +49,4 @@ jobs:
       on:
         branch: master
         repo: dani909/DaniHttp
+        condition: "TRAVIS_PULL_REQUEST = false"
