@@ -3,13 +3,18 @@ jdk:
 - oraclejdk8
 - oraclejdk9
 - openjdk8
+
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+
+env:
+- secure: "vUdYkhUo/a/XVi9jmKhYaarV4f1T6+ibUb40m2W4676BjJZ+7FefjvTl6AGONKo3/o4myKtnQrvC59a7pWbzmF9jptPobk7NjR5DQk6ewLONWaD+xFBCpp2mcJV/Z5mLORFl75BEtrtjHYs0nL6jd7kubn7A+MAkFvL/NEudz5Hcer2nwqZKWExSsOqB5hoc+4vcQ3Mz4wOZLIh6QgsFELIZW+iDpYE7tLjxqbGSVjcbarDLzQbeUQwBcHXvkosJ3BEwkR+P71STTU7sJFsQApUdE9+yI5QWM2h11rpncxa8jqj9WsiVubxMCQ90bHpnsZucGgbEIKQItkgLAZhCpEx8VxXZz3jX9R+2R5Gu8XXlPqOTZjqfcGaZcp9q0QyFOHKIXW+y6QPS+5yJ+Uvue2lHP+lASM9HkS0SttL/l1ynUPh9eYAeUKOqHjIB+9S0I5Hl4UbkhbBc2Z9njCD8fGvuoUYZld65qI/Q32U9qX8Ie6j7tSLhB7Fm030jNROOjuwPwRs40uc5I1KuskJu40Op28OLoAZRJvyLBMOZTlQx0mFHmzeyBqY431MI2paCMAgHBR1TpW6zUTe9eoe+ZiXcmMq26tXEUI44/4GvcXllpIu0ZwTpDYYoYnUrUVhqxymDerkKnReZ+QShnWonUUZifspynr5CEc38XrnHij4="
 
 before_install:
 - docker pull kennethreitz/httpbin > /dev/null 2>&1 & # Pull Image in Background
@@ -19,7 +24,7 @@ before_script:
 - export HTTP_BIN_URL="http://localhost:80"
 
 deploy:
-  provider: releases
+- provider: releases
   api_key:
     secure: asn4QE028VMCiJvRYN701Ga9zYCV6XQNne2WUfSyQyuKYYhHqkvyY1IRSvAI+UmKndHVcRQ0R/tUTpnNCrrDQGhsZt2TMG7bOFB6njLCjWakpDNV11kHs2kN3WcwNfomLAv+ctUVQAI48ugeFYCUWbThckqa2lZx5oJ1MCHpbfvbKJJUYyLRG8g+bAdc8FBjdn86sRARc4uhsTUCvJct9LV3eTIPWD3KZ5x25JvnZBZU6FUegqXQOCUs+GEAJcYHiXOJQOX9GtH8Ucfw0AVpRw1D45Dxoc9tTv9O2d0BTZHsZ1tAkg3FHS0Vk7lUKumINQ8eRsFbwi+wt4Dn+8oGRZKbkwD+NIclM2y+3w5hL4WinqhX0t4nReEWPOpNcR7cHJFA20pIB2QCamXNZwnyYJGQLROOX4uYatcmbrGJ5HZxRPJqKZ9mWVf1/Y/CfORhJjdbHQYlFZxtjKrkadaG86x/Ae7Ku0nYB7PZlnN7zh+8KIA4nafDOqQCH/HLjJ3qYd4O4nWyaOvzmUxR9Wa5DFo5x5UweHPvYMKCjbYljbtxr8jJgDbGKqsNOV+bDBv97PXPsYlqOBAE43aI7MG7Tg48KYHH59aEReW4BDmJfNrNGy5bEXua0enrjHOPUkSPKApP7yHnRESQMQwxARc3IdweAdrTqpvraUguJHRzsBQ=
   file_glob: true
@@ -27,4 +32,11 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    repo: dani909/DaniHttp
+
+- provider: script
+  script: ./gradlew publish -Psnapshot
+  skip_cleanup: true
+  on:
+    branch: master
     repo: dani909/DaniHttp
