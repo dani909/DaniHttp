@@ -52,6 +52,7 @@ class HttpRequest(private var url: String,
      */
     fun addRequestHeader(headerName: String, headerValue: String): HttpRequest = apply { this.requestHeaders[headerName] = headerValue }
 
+
     /**
      * Sets the body for the HttpRequest
      * @param b the Body in a String
@@ -81,6 +82,7 @@ class HttpRequest(private var url: String,
      */
     fun setContentType(contentType: String) = apply { addRequestHeader("Content-Type", contentType) }
 
+
     /**
      * Sets the maximal Socket Connect Timeout in milliseconds for this HttpRequest
      * Default value is 10000
@@ -94,6 +96,7 @@ class HttpRequest(private var url: String,
      * 0 stands for infinity
      */
     fun setReadTimeOut(readTimeout: Int) = apply { this.readTimeout = readTimeout }
+
 
     /**
      * Sets the max allowed Redirects the HttpRequest will follow
@@ -118,7 +121,6 @@ class HttpRequest(private var url: String,
      * @param stream the OutputStream that should be written the http body to
      */
     fun setOutputStream(stream: OutputStream) = apply { this.outputStream = stream }
-
 
 
     /**
