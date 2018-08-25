@@ -120,6 +120,7 @@ internal class HttpRequestExecutor(private val request: HttpRequest) {
         }
 
         progressListeners.forEach { it.onFinish() }
+        stream.close()
     }
 
     private fun followRedirect(response: HttpResponse, redirectCount: Int, exceptions: Boolean): HttpResponse? {
