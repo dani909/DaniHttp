@@ -10,5 +10,6 @@ class HttpMethodTest {
         assert("POST", HttpMethod.POST.toString(), "HttpMethodPost")
         assert("PUT", HttpMethod.PUT.toString(), "HttpMethodPut")
         assert("DELETE", HttpMethod.DELETE.toString(), "HttpMethodDelete")
+        assert("HEAD", HttpMethod.HEAD.toString(), "HttpMethodHead")
     }
 }

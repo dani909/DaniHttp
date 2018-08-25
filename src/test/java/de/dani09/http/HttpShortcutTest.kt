@@ -38,6 +38,15 @@ class HttpShortcutTest {
         val actual = Http.delete(randomString)
         val expected = HttpRequest(randomString, HttpMethod.DELETE)
 
-        assert(expected, actual, "HttpShortcutDelte")
+        assert(expected, actual, "HttpShortcutDelete")
+    }
+
+    @Test
+    fun head() {
+        val randomString = TestUtil.generateRandomString(16)
+        val actual = Http.head(randomString)
+        val expected = HttpRequest(randomString, HttpMethod.HEAD)
+
+        assert(expected, actual, "HttpShortcutHead")
     }
 }
