@@ -34,13 +34,4 @@ class SimpleRequests {
 
         assert(1 * 1024 * 1024, response.response.size, "1MBTestFileSize")
     }
-
-    @Test
-    fun headOf1MBFile() {
-        val response = Http.head("$dani09de/testFiles/1MB.txt")
-                .handleRedirects(10)
-                .execute()
-
-        assert(0, response.response.size, "1MBTestFileHeadResponseSize")
-    }
 }
