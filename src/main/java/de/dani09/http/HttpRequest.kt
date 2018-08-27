@@ -103,12 +103,19 @@ class HttpRequest(private var url: String,
 
     /**
      * Sets the max allowed Redirects the HttpRequest will follow
-     * Default param value is 1 to follow 1 redirect
-     * Do not set to like Integer.MAX_VALUE because you may block your Thread for ever if you get into an Ring Redirect
+     * Default value is 0 to not follow them
+     * Default param value of this method is 1 to follow 1 redirect
      * @param maxRedirects maximum allowed Redirects to follow
      */
     @JvmOverloads
     fun handleRedirects(maxRedirects: Int = 1) = apply { this.maxRedirects = maxRedirects }
+
+    /**
+     * Follows up to 10 Http redirects
+     * Default value if not called is 0
+     * @see handleRedirects if wanted more or less
+     */
+    fun followRedirects() = handleRedirects(10)
 
     /**
      * adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is executing

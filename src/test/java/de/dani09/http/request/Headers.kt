@@ -74,4 +74,33 @@ class Headers {
 
         assert(expected, actual, "GetContentType")
     }
+
+    @Test
+    fun noKeepAlive() {
+        val expected = "close"
+
+        val actual = Http.get("$httpBin/get")
+                .noKeepAlive()
+                .execute()
+                .jSONObject
+                .getJSONObject("headers")
+                .getString("Connection")
+                .toLowerCase()
+
+        assert(expected, actual, "NoKeepAliveConnectionHeader")
+    }
+
+    @Test
+    fun keepAlive() {
+        val expected = "keep-alive"
+
+        val actual = Http.get("$httpBin/get")
+                .execute()
+                .jSONObject
+                .getJSONObject("headers")
+                .getString("Connection")
+                .toLowerCase()
+
+        assert(expected, actual, "KeepAliveConnectionHeader")
+    }
 }

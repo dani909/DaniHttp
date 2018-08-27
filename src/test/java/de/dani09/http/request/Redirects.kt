@@ -58,4 +58,14 @@ class Redirects {
 
         assert(302, redirectResponseCode, "redirectOnlyOnce")
     }
+
+    @Test
+    fun followRedirects() {
+        val code = Http.get("$httpBin/relative-redirect/1")
+                .handleRedirects()
+                .execute()
+                .responseCode
+
+        assert(200, code, "followRedirects")
+    }
 }
