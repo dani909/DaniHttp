@@ -89,18 +89,4 @@ class Headers {
 
         assert(expected, actual, "NoKeepAliveConnectionHeader")
     }
-
-    @Test
-    fun keepAlive() {
-        val expected = "keep-alive"
-
-        val actual = Http.get("$httpBin/get")
-                .execute()
-                .jSONObject
-                .getJSONObject("headers")
-                .getString("Connection")
-                .toLowerCase()
-
-        assert(expected, actual, "KeepAliveConnectionHeader")
-    }
 }
