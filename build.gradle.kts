@@ -5,7 +5,7 @@ import org.jfrog.build.extractor.clientConfiguration.ArtifactoryClientConfigurat
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 
 group = "de.dani09"
-version = "0.4.0"
+version = "0.4.1"
 
 buildscript {
     var kotlinVersion: String by extra
@@ -87,6 +87,9 @@ tasks {
         dependsOn(fullJar)
         dependsOn(dokkaJar)
         dependsOn(dokkaHtml)
+    }
+    "publish"{
+        dependsOn("build")
     }
     "snapshot"{
         if (project.hasProperty("snapshot") && project.property("snapshot") is String) {
