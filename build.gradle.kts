@@ -5,11 +5,11 @@ import org.jfrog.build.extractor.clientConfiguration.ArtifactoryClientConfigurat
 import org.jfrog.gradle.plugin.artifactory.dsl.PublisherConfig
 
 group = "de.dani09"
-version = "0.4.1"
+version = "0.4.2"
 
 buildscript {
     var kotlinVersion: String by extra
-    kotlinVersion = "1.2.61"
+    kotlinVersion = "1.3.0"
 
     repositories {
         mavenCentral()

@@ -39,6 +39,7 @@ class HttpRequest(private var url: String,
     private var maxRedirects: Int = 0
     private var progressListeners: MutableList<HttpProgressListener> = mutableListOf()
     private var outputStream: OutputStream? = null
+    private var bufferSize: Int = 2048
 
     /**
      * sets the UserAgent for the Request
@@ -131,6 +132,19 @@ class HttpRequest(private var url: String,
      * @param stream the OutputStream that should be written the http body to
      */
     fun setOutputStream(stream: OutputStream) = apply { this.outputStream = stream }
+
+    /**
+     * Sets the Buffer size for reading the Http Body into the OutputStream or ByteArray
+     * Default value is 2048
+     * @param size the Buffer size in bytes
+     * @throws IllegalArgumentException if the buffer is smaller than 1
+     */
+    fun setReadBufferSize(size: Int): HttpRequest {
+        if (size < 1)
+            throw IllegalArgumentException("a buffer smaller than 1 is not possible")
+
+        return apply { this.bufferSize = size }
+    }
 
 
     /**
@@ -285,11 +299,11 @@ class HttpRequest(private var url: String,
             progressListeners.forEach { it.onStart(length) }
 
             val stream = connection.inputStream
-            val buffer = ByteArray(2048)
+            val buffer = ByteArray(request.bufferSize)
             var byteCount = 0
             var bytesRead = 0L
             while (byteCount != -1) {
-                byteCount = stream.read(buffer, 0, 2048)
+                byteCount = stream.read(buffer, 0, request.bufferSize)
 
                 if (byteCount != -1) {
                     bytesRead += byteCount
