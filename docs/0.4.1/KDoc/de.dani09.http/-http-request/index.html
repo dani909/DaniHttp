@@ -1,0 +1,307 @@
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <title>HttpRequest - </title>
+    <link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">de.dani09.http</a>&nbsp;/&nbsp;<a href="./index.html">HttpRequest</a><br/>
+<br/>
+<h1>HttpRequest</h1>
+<code><span class="keyword">class </span><span class="identifier">HttpRequest</span></code>
+<p>With this class you can make Http requests to an Server
+    to do that instance it add some Header etc. depending on what you need
+    and then call the execute method to actually execute it</p>
+<p>You can make HttpRequests in an Builder like pattern
+    because each method is returning the current instance</p>
+<h3>Constructors</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="-init-.html">&lt;init&gt;</a></p>
+        </td>
+        <td>
+            <code><span class="identifier">HttpRequest</span><span class="symbol">(</span><span class="identifier"
+                                                                                                id="de.dani09.http.HttpRequest$<init>(kotlin.String, de.dani09.http.HttpMethod)/url">url</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">, </span><span class="identifier"
+                                                                                            id="de.dani09.http.HttpRequest$<init>(kotlin.String, de.dani09.http.HttpMethod)/httpMethod">httpMethod</span><span
+                    class="symbol">:</span>&nbsp;<a href="../-http-method/index.html"><span class="identifier">HttpMethod</span></a><span
+                    class="symbol">)</span></code>
+            <p>With this class you can make Http requests to an Server
+                to do that instance it add some Header etc. depending on what you need
+                and then call the execute method to actually execute it</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h3>Functions</h3>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <p><a href="add-progress-listener.html">addProgressListener</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">addProgressListener</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$addProgressListener(de.dani09.http.HttpProgressListener)/listener">listener</span><span
+                    class="symbol">:</span>&nbsp;<a href="../-http-progress-listener/index.html"><span
+                    class="identifier">HttpProgressListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>adds and ProgressListener to the HttpRequest to get the current status when the HttpRequest is
+                executing</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="add-request-header.html">addRequestHeader</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">addRequestHeader</span><span class="symbol">(</span><span
+                    class="identifier"
+                    id="de.dani09.http.HttpRequest$addRequestHeader(kotlin.String, kotlin.String)/headerName">headerName</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">, </span><span class="identifier"
+                                                                                            id="de.dani09.http.HttpRequest$addRequestHeader(kotlin.String, kotlin.String)/headerValue">headerValue</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>adds an Request Header to the Request</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="equals.html">equals</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">equals</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$equals(kotlin.Any)/other">other</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span
+                    class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span
+                    class="identifier">Boolean</span></a></code>
+            <p>Checks if this instance is the same as the passed Parameter</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="execute.html">execute</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">execute</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="../-http-response/index.html"><span class="identifier">HttpResponse</span></a></code>
+            <p>Executes the Http Request and returns the Response
+                ResponseCode will be 0 if the Connection Timed Out</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="execute-as-future.html">executeAsFuture</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">executeAsFuture</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/Future.html"><span
+                    class="identifier">Future</span></a><span class="symbol">&lt;</span><a
+                    href="../-http-response/index.html"><span class="identifier">HttpResponse</span></a><span
+                    class="symbol">&gt;</span></code>
+            <p>Executes the Http Request as a Future</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="execute-without-exceptions.html">executeWithoutExceptions</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">executeWithoutExceptions</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="../-http-response/index.html"><span class="identifier">HttpResponse</span></a><span
+                    class="symbol">?</span></code>
+            <p>Executes the Http Request and will not throw any Exception
+                but will return null in case of an error instead</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="follow-redirects.html">followRedirects</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">followRedirects</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>Follows up to 10 Http redirects
+                Default value if not called is 0</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="handle-redirects.html">handleRedirects</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">handleRedirects</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$handleRedirects(kotlin.Int)/maxRedirects">maxRedirects</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span
+                    class="symbol">=</span>&nbsp;1<span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>Sets the max allowed Redirects the HttpRequest will follow
+                Default value is 0 to not follow them
+                Default param value of this method is 1 to follow 1 redirect</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="hash-code.html">hashCode</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span
+                    class="symbol">)</span><span class="symbol">: </span><a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+            <p>Calculates the HashCode of this instance</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="no-keep-alive.html">noKeepAlive</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">noKeepAlive</span><span
+                    class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>Sets the "Connection" Header to "close" to disable KeepAlive</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-content-type.html">setContentType</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setContentType</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setContentType(kotlin.String)/contentType">contentType</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>Sets the Content-Type Header for this HttpRequest</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-output-stream.html">setOutputStream</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setOutputStream</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setOutputStream(java.io.OutputStream)/stream">stream</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="http://docs.oracle.com/javase/6/docs/api/java/io/OutputStream.html"><span class="identifier">OutputStream</span></a><span
+                    class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span
+                    class="identifier">HttpRequest</span></a></code>
+            <p>set an OutputStream as an output of the HttpRequest
+                if provided it will write the responseBody into this OutputStream instead of providing it to the
+                HttpResponse
+                Note that HttpResponse.getResponse will return an empty byteArray if an OutputStream is used!</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-read-time-out.html">setReadTimeOut</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setReadTimeOut</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setReadTimeOut(kotlin.Int)/readTimeout">readTimeout</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span
+                    class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span
+                    class="identifier">HttpRequest</span></a></code>
+            <p>Sets the maximal Socket Read Timeout in milliseconds for this HttpRequest
+                Default value is 10000
+                0 stands for infinity</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-request-body.html">setRequestBody</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setRequestBody</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setRequestBody(kotlin.String, java.nio.charset.Charset)/b">b</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">, </span><span class="identifier"
+                                                                                            id="de.dani09.http.HttpRequest$setRequestBody(kotlin.String, java.nio.charset.Charset)/charset">charset</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html"><span
+                    class="identifier">Charset</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Charsets.UTF_8<span
+                    class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span
+                    class="identifier">HttpRequest</span></a></code><br/>
+            <code><span class="keyword">fun </span><span class="identifier">setRequestBody</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setRequestBody(kotlin.ByteArray)/b">b</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span
+                    class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code><br/>
+            <code><span class="keyword">fun </span><span class="identifier">setRequestBody</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setRequestBody(org.json.JSONObject, java.nio.charset.Charset)/b">b</span><span
+                    class="symbol">:</span>&nbsp;<span class="identifier">JSONObject</span><span
+                    class="symbol">, </span><span class="identifier"
+                                                  id="de.dani09.http.HttpRequest$setRequestBody(org.json.JSONObject, java.nio.charset.Charset)/charset">charset</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html"><span
+                    class="identifier">Charset</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Charsets.UTF_8<span
+                    class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span
+                    class="identifier">HttpRequest</span></a></code>
+            <p>Sets the body for the HttpRequest</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-time-out.html">setTimeOut</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setTimeOut</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setTimeOut(kotlin.Int)/timeout">timeout</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span
+                    class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span
+                    class="identifier">HttpRequest</span></a></code>
+            <p>Sets the maximal Socket Connect Timeout in milliseconds for this HttpRequest
+                Default value is 10000
+                0 stands for infinity</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="set-user-agent.html">setUserAgent</a></p>
+        </td>
+        <td>
+            <code><span class="keyword">fun </span><span class="identifier">setUserAgent</span><span
+                    class="symbol">(</span><span class="identifier"
+                                                 id="de.dani09.http.HttpRequest$setUserAgent(kotlin.String)/userAgent">userAgent</span><span
+                    class="symbol">:</span>&nbsp;<a
+                    href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span
+                    class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+                    href="./index.html"><span class="identifier">HttpRequest</span></a></code>
+            <p>sets the UserAgent for the Request
+                Default Value is "Mozilla/5.0"</p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</BODY>
+</HTML>

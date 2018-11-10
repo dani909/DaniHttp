@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <title>HttpProgressListener.onProgress - </title>
+    <link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">de.dani09.http</a>&nbsp;/&nbsp;<a href="index.html">HttpProgressListener</a>&nbsp;/&nbsp;<a
+        href="./on-progress.html">onProgress</a><br/>
+<br/>
+<h1>onProgress</h1>
+<a name="de.dani09.http.HttpProgressListener$onProgress(kotlin.Long, kotlin.Long)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onProgress</span><span
+        class="symbol">(</span><span class="identifier"
+                                     id="de.dani09.http.HttpProgressListener$onProgress(kotlin.Long, kotlin.Long)/bytesRead">bytesRead</span><span
+        class="symbol">:</span>&nbsp;<a
+        href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span
+        class="symbol">, </span><span class="identifier"
+                                      id="de.dani09.http.HttpProgressListener$onProgress(kotlin.Long, kotlin.Long)/fullLength">fullLength</span><span
+        class="symbol">:</span>&nbsp;<a
+        href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span
+        class="symbol">)</span><span class="symbol">: </span><a
+        href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>onProgress is called every time when some Progress was made some bytes were read</p>
+<h3>Parameters</h3>
+<p><a name="bytesRead"></a>
+    <code>bytesRead</code> - the count of total bytes read since start of the HttpRequest</p>
+<p><a name="fullLength"></a>
+    <code>fullLength</code> - the count of total bytes that the HttpRequest has to read</p>
+<a name="de.dani09.http.HttpProgressListener$onProgress(kotlin.Double)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onProgress</span><span
+        class="symbol">(</span><span class="identifier"
+                                     id="de.dani09.http.HttpProgressListener$onProgress(kotlin.Double)/percentage">percentage</span><span
+        class="symbol">:</span>&nbsp;<a
+        href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span
+        class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+        href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>onProgress is called every time when some Progress was made some bytes were read</p>
+<h3>Parameters</h3>
+<p><a name="percentage"></a>
+    <code>percentage</code> - the progress percentage of the request</p>
+</BODY>
+</HTML>
