@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <title>HttpRequest.setOutputStream - </title>
+    <link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">de.dani09.http</a>&nbsp;/&nbsp;<a href="index.html">HttpRequest</a>&nbsp;/&nbsp;<a
+        href="./set-output-stream.html">setOutputStream</a><br/>
+<br/>
+<h1>setOutputStream</h1>
+<a name="de.dani09.http.HttpRequest$setOutputStream(java.io.OutputStream)"></a>
+<code><span class="keyword">fun </span><span class="identifier">setOutputStream</span><span class="symbol">(</span><span
+        class="identifier"
+        id="de.dani09.http.HttpRequest$setOutputStream(java.io.OutputStream)/stream">stream</span><span
+        class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/OutputStream.html"><span
+        class="identifier">OutputStream</span></a><span class="symbol">)</span><span class="symbol">: </span><a
+        href="index.html"><span class="identifier">HttpRequest</span></a></code>
+<p>set an OutputStream as an output of the HttpRequest
+    if provided it will write the responseBody into this OutputStream instead of providing it to the HttpResponse
+    Note that HttpResponse.getResponse will return an empty byteArray if an OutputStream is used!</p>
+<h3>Parameters</h3>
+<p><a name="stream"></a>
+    <code>stream</code> - the OutputStream that should be written the http body to</p>
+</BODY>
+</HTML>
