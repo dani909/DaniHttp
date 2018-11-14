@@ -26,6 +26,7 @@ plugins {
     signing
     id("org.jetbrains.dokka") version "0.9.17"
     id("com.jfrog.artifactory") version "4.7.5"
+    jacoco
 }
 
 apply {
@@ -96,6 +97,13 @@ tasks {
             version = "$version-SNAPSHOT"
             println("Using Snapshot Version")
         }
+    }
+    "test"{
+        finalizedBy("jacocoTestReport")
+    }
+    "jacocoTestReport"(JacocoReport::class) {
+        reports.xml.isEnabled = true
+        reports.html.isEnabled = true
     }
 }
 

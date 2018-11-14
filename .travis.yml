@@ -20,6 +20,9 @@ before_script:
 - docker run -d -p 80:80 kennethreitz/httpbin
 - export HTTP_BIN_URL="http://localhost:80"
 
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+
 stage: test
 stages:
 - test
