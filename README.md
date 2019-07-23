@@ -1,5 +1,5 @@
 # DaniHttp DEPRECATED/NOT MAINTAINED
-[![Build Status](https://travis-ci.org/dani909/DaniHttp.svg?branch=master)](https://travis-ci.org/dani909/DaniHttp)
+[![Build Status](https://travis-ci.org/daniel0611/DaniHttp.svg?branch=master)](https://travis-ci.org/dani909/DaniHttp)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dani09/dani-http/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dani09/dani-http)
 [![JCenter](https://api.bintray.com/packages/dani09/DaniHttp/DaniHttp/images/download.svg) ](https://bintray.com/dani09/DaniHttp/DaniHttp/_latestVersion)
 
@@ -52,18 +52,18 @@ libraryDependencies += "de.dani09" % "dani-http" % "X.Y.Z"
 
 ## Documentation
 
-Javadoc and KDoc can be found at [dani909.github.io/DaniHttp](https://dani909.github.io/DaniHttp)
+Javadoc and KDoc can be found at [daniel0611.github.io/DaniHttp](https://daniel0611.github.io/DaniHttp)
 
 ## Usage
-First import the Library
+First import the library
 
 ```java
 import de.dani09.http;
 ```
 
-and then see where your IDE's Autocomplete feature will bring you.
+and then see where your IDE's autocomplete feature will bring you.
 
-An Example:
+An example:
 
 ```java
 class HttpExample {
