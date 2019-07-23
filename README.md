@@ -1,5 +1,5 @@
 # DaniHttp DEPRECATED/NOT MAINTAINED
-[![Build Status](https://travis-ci.org/daniel0611/DaniHttp.svg?branch=master)](https://travis-ci.org/dani909/DaniHttp)
+[![Build Status](https://travis-ci.org/daniel0611/DaniHttp.svg?branch=master)](https://travis-ci.org/daniel0611/DaniHttp)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dani09/dani-http/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dani09/dani-http)
 [![JCenter](https://api.bintray.com/packages/dani09/DaniHttp/DaniHttp/images/download.svg) ](https://bintray.com/dani09/DaniHttp/DaniHttp/_latestVersion)
 
